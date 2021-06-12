@@ -1,0 +1,12 @@
+.catalogPage {
+    padding: 0 110px;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 30px;
+    }
+
+    &__title {
+        font-size: 60px;
+        font-weight: normal;
+    }
+}
