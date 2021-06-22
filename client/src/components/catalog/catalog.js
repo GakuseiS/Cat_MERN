@@ -10,8 +10,8 @@ const Catalog = () => {
     const getCards = useCallback(async () => {
         const cards = await fetch('api/cards', {headers: {'Content-Type': 'application/json'}})
         return await cards.json()
-    }, []) 
-
+    }, [])
+    
     useEffect(() => {
         getCards().then(data => setCards(data))
     }, [getCards])
@@ -19,7 +19,7 @@ const Catalog = () => {
     return (
         <div className='catalog'>
             {cards.map(item => {
-                return <CatalogItem key={item._id} title={item.title} img={item.img} size={item.size} taste={item.taste} price={item.price}/>
+                return <CatalogItem key={item._id} title={item.title} img={item.img} size={item.size} taste={item.taste} price={item.price} id={item._id} />
             })}
             <div className='catalog__more'>
                 <h3 className='catalog__more-title'>Показать еще<br /> 100500 товаров</h3>

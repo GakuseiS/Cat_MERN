@@ -1,0 +1,16 @@
+.ordersPage {
+    padding: 0 110px;
+    margin-bottom: 60px;
+    font-size: 18px;
+    min-height: 500px;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 30px;
+    }
+
+    &__title {
+        font-size: 60px;
+        font-weight: normal;
+    }
+
+}

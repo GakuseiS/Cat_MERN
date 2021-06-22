@@ -24,6 +24,8 @@ const Header = (props) => {
                 <li className='header__item'><NavLink className={links} to='/' activeClassName={active} exact>Главная</NavLink></li>
                 <li className='header__item'><NavLink className={links}  to='/catalog' activeClassName={active}>Каталог продукции</NavLink></li>
                 <li className='header__item'><NavLink className={links} to='/form' activeClassName={active}>Подбор программы</NavLink></li>
+                <li className='header__item'><NavLink className={links} to='/card' activeClassName={active}>Корзина</NavLink></li>
+                <li className='header__item'><NavLink className={links} to='/orders' activeClassName={active}>Заказы</NavLink></li>
             </ul>
         </nav>
     )

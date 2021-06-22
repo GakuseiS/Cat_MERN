@@ -6,6 +6,8 @@ import MainPage from '../pages/mainPage';
 import CatalogPage from '../pages/catalogPage';
 import './App.scss';
 import FormPage from '../pages/formPage';
+import CardPage from '../pages/cardPage';
+import OrdersPage from '../pages/ordersPage';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Switch>
           <Route path='/catalog' component={CatalogPage} />
           <Route path='/form' component={FormPage} />
+          <Route path='/card' component={CardPage} />
+          <Route path='/orders' component={OrdersPage} />
           <Route path='/' component={MainPage} />
           <Redirect to='/' />
         </Switch>

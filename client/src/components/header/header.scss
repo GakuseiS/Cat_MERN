@@ -11,14 +11,14 @@
     &__list {
         display: flex;
         justify-content: space-between;
-        width: 480px;
+        width: 580px;
         margin: 0;
         padding: 0;
         
         list-style: none;
 
         @media screen and (max-width: 768px) {
-            width: 440px;
+            width: 520px;
         }
     }
 
