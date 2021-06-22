@@ -12,6 +12,7 @@ app.use('/api/cards', require('./routes/cards'))
 app.use('/api/card', require('./routes/basket'))
 app.use('/api/orders', require('./routes/orders'))
 app.use('/api/addons', require('./routes/addons'))
+app.use('/api/users', require('./routes/user'))
 
 const start = async () => {
     try {

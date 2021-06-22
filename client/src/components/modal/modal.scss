@@ -1,0 +1,80 @@
+.modal {
+
+    position: fixed;
+    left: calc(100%/2 - 230px);
+    top: 150px;
+    z-index: 10;
+
+    width: 460px;
+    height: 520px;
+    padding: 50px 70px;
+
+    background-color: white;
+    box-shadow: 4px 4px 30px 7px rgba(0, 0, 0, 0.30);
+
+    box-sizing: border-box;
+
+    &__title {
+        margin: 0;
+
+        font-size: 40px;
+        text-align: center;
+    }
+
+    &__text {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    &__input-text {
+        padding: 15px;
+        border: 1px solid #e6e6e6;
+        box-sizing: border-box;
+        width: 320px;
+        margin-bottom: 10px;
+    
+        font-size: 20px;
+        line-height: 20px;
+        font-family: inherit;
+    
+        &:hover {
+            border: 1px solid #cfcfcf;
+        }
+    
+        &:active {
+            border: 1px solid #4d4d4d;
+        }
+
+    }
+
+    &__wrapper {
+        margin-left: 40px;
+    }
+
+    &__switch {
+        color: black;
+    }
+
+    &__switches {
+        display: flex;
+        justify-content: space-around;
+
+        font-size: 18px;
+    }
+
+    &__cross {
+        position: absolute;
+        top: 30px;
+        right: -50px;
+
+        display: inline-block;
+        width: 30px;
+
+        font-size: 30px;
+        text-align: center;
+
+        cursor: pointer;
+    }
+
+}
+
