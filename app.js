@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const keys = require('./keys/keys.dev')
+const keys = require('./keys/index')
 const path = require("path")
 
 const PORT = process.env.PORT || 5000

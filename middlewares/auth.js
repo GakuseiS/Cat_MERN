@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const key = require('../keys/keys.dev')
+const key = require('../keys/index')
 
 module.exports = (req, res, next) => {
     if(req.method === 'OPTIONS') {
