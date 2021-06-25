@@ -1,16 +1,17 @@
 const Router = require('express')
 const Basket = require('../models/Basket')
 const Orders = require('../models/Orders')
+const auth = require('../middlewares/auth')
 const router = Router()
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     try{
-        const basket = await Basket.findOne()
-        const orders = await Orders.findOne()
+        const basket = await Basket.findOne({userId: req.user.id})
+        const orders = await Orders.findOne({userId: req.user.id})
         const add = {...req.body}
 
         if(!orders) {
-            const order = new Orders({order: [add]})
+            const order = new Orders({order: [add], userId: req.user.id})
             await order.save()
             
         } else {
@@ -24,9 +25,9 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try{
-        let orders = await Orders.findOne() || {}
+        let orders = await Orders.findOne({userId: req.user.id}) || {}
         res.json({orders})
     } catch (e) {
         res.status(500).json({message: 'Что-то пошло не так'})

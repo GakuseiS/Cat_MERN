@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import {AuthContext} from '../../context/AuthContext'
+import Loader from '../loader/loader'
 import './ordersPage.scss'
 
 const OrdersPage = () => {
     const [orders, setOrders] = useState()
     const [loading, setLoading] = useState(true)
+    const {token} = useContext(AuthContext)
 
 
     const setDate = (date) => {
@@ -15,14 +18,27 @@ const OrdersPage = () => {
     }
 
     useEffect(() => {
-        fetch('/api/orders')
+        fetch('/api/orders', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setOrders(data.orders.order)
                 setLoading(false)
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [token])
+
+    if(loading) {
+        return (
+            <div className='ordersPage'>
+                <Loader />
+            </div>
+        )
+    }
+
     return (
         <div className='ordersPage'>
             <h1 className='ordersPage__title'>Заказы</h1>

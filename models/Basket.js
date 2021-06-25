@@ -18,9 +18,9 @@ const schema = new Schema({
         default: 0
     },
 
-    basket: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'Orders'
+        ref: 'User'
     }
 })
 
@@ -40,8 +40,7 @@ schema.methods.deleteFromBasket = function (id) {
     const idx = this.items.findIndex(item => item._id.toString() === id.toString())
 
     this.allPrice -= this.items[idx].price
-   
-
+    
     if (this.items[idx].count > 1) {
         this.items[idx].count--
 
@@ -50,7 +49,7 @@ schema.methods.deleteFromBasket = function (id) {
     }
 
     if(this.allPrice === 0) {
-        this.remove()
+        return this.remove()
     }
 
     return this.save()

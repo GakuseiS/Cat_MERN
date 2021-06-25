@@ -1,9 +1,11 @@
 import React from 'react'
-import './loader.css'
+import './loader.scss'
 
 const Loader = () => {
     return (
-        <div class="loader">Loading...</div>
+        <div className="spin-wrapper">
+            <div className="spinner"></div>
+        </div>
     )
 }
 

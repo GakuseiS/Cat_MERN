@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Button from '../button/button';
 import CatalogItem from '../catalogItem/catalogItem';
+import Loader from '../loader/loader'
 import './catalog.scss';
 
 
 const Catalog = () => {
     const [cards, setCards] = useState([])
+    const [loading, setLoading] = useState(true)
     
     const getCards = useCallback(async () => {
         const cards = await fetch('api/cards', {headers: {'Content-Type': 'application/json'}})
@@ -13,12 +15,16 @@ const Catalog = () => {
     }, [])
     
     useEffect(() => {
-        getCards().then(data => setCards(data))
+        getCards().then(data => {setCards(data); setLoading(false)})
     }, [getCards])
+
+    if(loading) {
+        return <div className='catalog'><Loader /></div>
+    }
 
     return (
         <div className='catalog'>
-            {cards.map(item => {
+            { cards.map(item => {
                 return <CatalogItem key={item._id} title={item.title} img={item.img} size={item.size} taste={item.taste} price={item.price} id={item._id} />
             })}
             <div className='catalog__more'>

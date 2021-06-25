@@ -1,28 +1,38 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import {useHistory} from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 import Button from '../button/button'
+import Loader from '../loader/loader'
 import './cardPage.scss'
 
 
 
 const CardPage = () => {
     let history = useHistory()
+    const {token} = useContext(AuthContext)
     const [card, setCard] = useState({})
     const [loading, setLoading] = useState(true)
     const getCard = useCallback(() => {
-        fetch('/api/card')
+        fetch('/api/card', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         .then(res => res.json())
         .then(data => {
             setCard(data.basket)
             setLoading(false)
             
         })
-    }, [])
+    }, [token])
 
     const clearCard = (evt) => {
         evt.preventDefault()
         fetch('/api/card', {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         }).then(res => res.json())
         .then(data => {
             setLoading(true)
@@ -32,7 +42,11 @@ const CardPage = () => {
 
     const deleteItem = (evt) => {
         fetch('/api/card/' + evt.target.dataset.id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+            
         }).then(res => res.json())
         .then(data => {
             setLoading(true)
@@ -45,7 +59,8 @@ const CardPage = () => {
         fetch('/api/orders', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(card)
         }).then(res => history.push('/orders'))
@@ -54,6 +69,14 @@ const CardPage = () => {
     useEffect(() => {
         getCard()
     }, [getCard, loading])
+
+    if (loading) {
+        return (
+            <div className='cardPage'>
+                <Loader />
+            </div>
+        )
+    }
 
     
 

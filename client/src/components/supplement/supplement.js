@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import ErrorContext from '../../context/ErrorContext';
 import Button from '../button/button';
 import './supplement.scss';
 
 const Supplement = () => {
+    const {token} = useContext(AuthContext)
     const [addons, setAddons] = useState()
     const [loading, setLoading] = useState(true)
+    const {errorMessage} = useContext(ErrorContext)
 
     const getId = (evt) => {
         evt.preventDefault()
@@ -13,10 +17,13 @@ const Supplement = () => {
         fetch('/api/card', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify( {id} )
         })
+            .then(res => res.json())
+            .then(data => errorMessage(data.message))
     }
 
     useEffect(() => {
