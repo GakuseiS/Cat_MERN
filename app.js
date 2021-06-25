@@ -15,6 +15,9 @@ app.use('/api/card', require('./routes/basket'))
 app.use('/api/orders', require('./routes/orders'))
 app.use('/api/addons', require('./routes/addons'))
 app.use('/api/users', require('./routes/user'))
+app.get("*", function (req, res) {
+    res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+})
 
 const start = async () => {
     try {
