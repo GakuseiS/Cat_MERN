@@ -12,9 +12,6 @@
     "build": "npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client \""
   },
-  "engines": {
-    "node": "15.9.0"
-  },
   "keywords": [
     "mern"
   ],
