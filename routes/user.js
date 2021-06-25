@@ -50,7 +50,7 @@ async (req, res) => {
         return res.status(400).json({message: 'Такого пользователя нет в системе'})
     }
 
-    const token = jwt.sign({id: candidate._id}, keys.secretKey, {expiresIn: '1h'})
+    const token = jwt.sign({id: candidate._id}, keys.SESSION_SECRET, {expiresIn: '1h'})
 
     res.json({token, userId: candidate._id})
 })

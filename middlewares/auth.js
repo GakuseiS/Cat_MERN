@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const key = require('../keys/index')
+const keys = require('../keys/index')
 
 module.exports = (req, res, next) => {
     if(req.method === 'OPTIONS') {
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         if(!token) {
             return res.status(401).json({message: 'Вы не авторизированы'})
         }
-        req.user = jwt.verify(token, key.secretKey)
+        req.user = jwt.verify(token, keys.SESSION_SECRET)
         next()
     } catch(e) {
         res.status(401).json({message: 'Вы не авторизированы'})
