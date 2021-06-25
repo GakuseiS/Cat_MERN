@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 const keys = require('../keys/keys.dev')
 const {check, validationResult} = require('express-validator')
-
 const router = Router()
 
 router.post('/register', 
@@ -25,6 +24,7 @@ async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 12)
     const user = new User({email, name, password: hashPassword})
     await user.save()
+    res.json({message: 'Пользователь успешно зарегистрирован'})
 })
 
 router.post('/login',
