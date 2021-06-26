@@ -129,8 +129,7 @@
     &__catWas {
         position: absolute;
         top: -60px;
-        left: 700px;
-        // clip: rect(0, 340px, 499px, auto);
+        left: 730px;
         object-fit: cover;
         object-position: left top;
         z-index: 5;
@@ -142,7 +141,7 @@
 
     &__catBecame {
         position: absolute;
-        right: 150px;
+        right: 125px;
         top: -0px;
         
         @media screen and (max-width: 768px) {
@@ -152,34 +151,4 @@
         
     }
 
-    &__slider {
-        width: 450px;
-        margin-left: 10px;
-        margin-right: 10px;
-
-        @media screen and (max-width: 768px) {
-            margin-top: 350px;
-            margin-bottom: 70px;
-        }
-    }
-
-    &__label {
-        display: inline-block;
-
-        border-bottom: 1px dotted #bebebe;
-
-        font-size: 20px;
-        text-transform: uppercase;
-
-        cursor: pointer;
-
-        &:hover {
-            border-bottom: 1px solid #989898;
-        }
-
-        &:active {
-            border-bottom: none;
-        }
-        
-    }
 }

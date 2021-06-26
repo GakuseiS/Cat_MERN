@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './example.scss';
 import catWas from './Was.png';
 import catBecame from './cat2.png';
+import Range from '../range/range'
 
 const Example = () => {
     let [slider, setSlider] = useState(53);
@@ -29,9 +30,7 @@ const Example = () => {
                 <div className='example__right'>
                     <img className='example__catWas' src={catWas} width={`${677 * slider/100}`} height='499' alt='was' />
                     <img className='example__catBecame' src={catBecame} width={445} height='420' alt='became' />
-                    <span className='example__label' onClick={() => setSlider(0)}>Было</span>
-                    <input className='example__slider' type='range' min='0' max='100' step='1' value={slider} onChange={(evt) => setSlider(evt.target.value)}/>
-                    <span className='example__label' onClick={() => setSlider(100)}>Стало</span>
+                    <Range setRange={setSlider} />
                 </div>
             </div>
         </div>
