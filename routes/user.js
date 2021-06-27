@@ -5,6 +5,7 @@ const User = require('../models/User')
 const keys = require('../keys/index')
 const {check, validationResult} = require('express-validator')
 const router = Router()
+const auth = require('../middlewares/auth')
 
 router.post('/register', 
 [check('name').isLength({min: 3}).exists(), check('email').exists(), check('password').isLength({min: 6}).exists()], 
@@ -50,9 +51,10 @@ async (req, res) => {
         return res.status(400).json({message: 'Такого пользователя нет в системе'})
     }
 
-    const token = jwt.sign({id: candidate._id}, keys.SESSION_SECRET, {expiresIn: '1h'})
+    const token = jwt.sign({id: candidate._id}, keys.SESSION_SECRET)
 
     res.json({token, userId: candidate._id})
 })
+
 
 module.exports = router

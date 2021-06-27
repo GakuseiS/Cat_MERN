@@ -6,12 +6,16 @@ const auth = require('../middlewares/auth')
 const router = Router()
 
 router.get('/', auth, async (req, res) => {
-    let basket = await Basket.findOne({userId: req.user.id})
-    if(!basket) {
-        return res.json({basket: {allPrice: 0}})
-    }
+    try {
+        let basket = await Basket.findOne({userId: req.user.id})
+        if(!basket) {
+            return res.json({basket: {allPrice: 0}})
+        }
 
-    res.json({basket})
+        res.json({basket})
+    } catch(e) {
+        res.json({message: 'Ошибка'})
+    }
 })
 
 router.post('/', auth, async (req, res) => {

@@ -6,11 +6,12 @@
   "scripts": {
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "concurrently \"npm run server\" \"npm run start --prefix client\"",
-    "server": "node app.js", 
+    "server": "node app.js",
+    "server:dev": "nodemon app.js",  
     "client": "npm start --prefix client",
     "install-client": "npm install --prefix client",
     "build": "npm run build --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client \""
+    "dev": "concurrently \"npm run server:dev\" \"npm run client \""
   },
   "keywords": [
     "mern"
