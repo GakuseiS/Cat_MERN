@@ -5,7 +5,6 @@ import Supplement from '../supplement/supplement';
 
 const CatalogPage = () => {
     
-
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])

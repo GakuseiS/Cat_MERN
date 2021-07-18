@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Button from '../button/button';
 import CatalogItem from '../catalogItem/catalogItem';
 import Loader from '../loader/loader'
@@ -8,14 +8,21 @@ import './catalog.scss';
 const Catalog = () => {
     const [cards, setCards] = useState([])
     const [loading, setLoading] = useState(true)
+    const mountedRef = useRef(true)
     
-    const getCards = useCallback(async () => {
-        const cards = await fetch('api/cards', {headers: {'Content-Type': 'application/json'}})
-        return await cards.json()
+    const getCards = useCallback(() => {
+        fetch('api/cards').then(res => res.json()).then(data => {
+            if (!mountedRef.current) return null
+            setCards(data) 
+            setLoading(false)
+        })
     }, [])
     
     useEffect(() => {
-        getCards().then(data => {setCards(data); setLoading(false)})
+        getCards()
+        return () => {
+            mountedRef.current = false
+        }
     }, [getCards])
 
     if(loading) {

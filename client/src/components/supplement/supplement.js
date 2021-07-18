@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import ErrorContext from '../../context/ErrorContext';
 import Button from '../button/button';
@@ -9,6 +9,7 @@ const Supplement = () => {
     const [addons, setAddons] = useState()
     const [loading, setLoading] = useState(true)
     const {errorMessage} = useContext(ErrorContext)
+    const mountedRef = useRef(true)
 
     const getId = (evt) => {
         evt.preventDefault()
@@ -30,9 +31,13 @@ const Supplement = () => {
         fetch('/api/addons')
             .then(res => res.json())
             .then(data => {
+                if (!mountedRef.current) return null
                 setAddons(data.addons)
                 setLoading(false)
             })
+        return () => {
+            mountedRef.current = false
+        }
     }, [])
     return (
         <div className='sup'>

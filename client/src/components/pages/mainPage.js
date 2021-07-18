@@ -5,6 +5,7 @@ import Features from '../features/features';
 import How from '../how/how';
 
 const MainPage = () => {
+    
     return (
         <div className='mainPage'>
             <Appeal />

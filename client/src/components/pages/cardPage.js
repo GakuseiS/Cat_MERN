@@ -1,17 +1,16 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState, useRef } from 'react'
 import {useHistory} from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import Button from '../button/button'
 import Loader from '../loader/loader'
 import './cardPage.scss'
 
-
-
 const CardPage = () => {
     let history = useHistory()
     const {token} = useContext(AuthContext)
     const [card, setCard] = useState({})
     const [loading, setLoading] = useState(true)
+    const mountedRef = useRef(true)
     const getCard = useCallback(() => {
         fetch('/api/card', {
             headers: {
@@ -20,6 +19,7 @@ const CardPage = () => {
         })
         .then(res => res.json())
         .then(data => {
+            if (!mountedRef.current) return null
             setCard(data.basket)
             setLoading(false)
             
@@ -68,7 +68,10 @@ const CardPage = () => {
 
     useEffect(() => {
         getCard()
-    }, [getCard, loading])
+        return () => {
+            mountedRef.current = false
+        }
+    }, [getCard])
 
     if (loading) {
         return (
@@ -79,7 +82,6 @@ const CardPage = () => {
     }
 
     
-
     return (
         <div className='cardPage'>
             <h1 className='cardPage__title'>Корзина</h1>

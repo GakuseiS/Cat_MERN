@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import {AuthContext} from '../../context/AuthContext'
 import Loader from '../loader/loader'
 import './ordersPage.scss'
@@ -7,7 +7,7 @@ const OrdersPage = () => {
     const [orders, setOrders] = useState()
     const [loading, setLoading] = useState(true)
     const {token} = useContext(AuthContext)
-
+    const mountedRef = useRef(true)
 
     const setDate = (date) => {
         return new Intl.DateTimeFormat('ru-RU', {
@@ -25,10 +25,14 @@ const OrdersPage = () => {
         })
             .then(res => res.json())
             .then(data => {
+                if (!mountedRef.current) return null
                 setOrders(data.orders.order)
                 setLoading(false)
             })
             .catch(err => console.log(err))
+        return () => {
+            mountedRef.current = false
+        }
     }, [token])
 
     if(loading) {

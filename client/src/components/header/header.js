@@ -30,10 +30,10 @@ const Header = (props) => {
             </picture>
             <ul className='header__list'>
                 <li className='header__item'><NavLink className={links} to='/' activeClassName={active} exact>Главная</NavLink></li>
-                <li className='header__item'><NavLink className={links}  to='/catalog' activeClassName={active}>Каталог продукции</NavLink></li>
-                {!isAuthenticated && <li className='header__item'><NavLink className={links} to='/form' activeClassName={active}>Подбор программы</NavLink></li>}
-                {isAuthenticated && <li className='header__item'><NavLink className={links} to='/card' activeClassName={active}>Корзина</NavLink></li>}
-                {isAuthenticated && <li className='header__item'><NavLink className={links} to='/orders' activeClassName={active}>Заказы</NavLink></li>}
+                <li className='header__item'><NavLink className={links}  to='/catalog' activeClassName={active} >Каталог продукции</NavLink></li>
+                {!isAuthenticated && <li className='header__item'><NavLink className={links} to='/form' activeClassName={active} >Подбор программы</NavLink></li>}
+                {isAuthenticated && <li className='header__item'><NavLink className={links} to='/card' activeClassName={active} >Корзина</NavLink></li>}
+                {isAuthenticated && <li className='header__item'><NavLink className={links} to='/orders' activeClassName={active} >Заказы</NavLink></li>}
                 {!isAuthenticated && <li className='header__item'><a className={links} href='/' onClick={evt => {evt.preventDefault(); setOpenModal(!openModal)}}>Вход</a></li>}
                 {isAuthenticated && <li className='header__item'><a className={links} href='/' onClick={evt => {evt.preventDefault(); logout(); history.push('/')}}>Выйти</a></li>}
             </ul>

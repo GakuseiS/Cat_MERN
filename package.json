@@ -7,7 +7,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "concurrently \"npm run server\" \"npm run start --prefix client\"",
     "server": "node app.js",
-    "server:dev": "nodemon app.js",  
+    "server:dev": "nodemon app.js",
     "client": "npm start --prefix client",
     "install-client": "npm install --prefix client",
     "build": "npm run build --prefix client",
@@ -21,6 +21,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "concurrently": "^6.2.0",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
