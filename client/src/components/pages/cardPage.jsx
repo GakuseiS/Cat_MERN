@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState, useRef } from 'react'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import Button from '../button/button'
 import Loader from '../loader/loader'
 import './cardPage.scss'
 
 const CardPage = () => {
-    let history = useHistory()
+    let history = useNavigate()
     const {token} = useContext(AuthContext)
     const [card, setCard] = useState({})
     const [loading, setLoading] = useState(true)
@@ -63,7 +63,7 @@ const CardPage = () => {
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(card)
-        }).then(res => history.push('/orders'))
+        }).then(res => history('/orders'))
     }
 
     useEffect(() => {

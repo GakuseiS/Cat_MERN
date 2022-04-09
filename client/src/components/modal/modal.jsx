@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import ErrorContext from '../../context/ErrorContext'
 import Button from '../button/button'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import './modal.scss'
 
 const Modal = ({setCross}) => {
     const [switcher, setSwitcher] = useState(true)
     const {login} = useContext(AuthContext)
     const {errorMessage} = useContext(ErrorContext)
-    const history = useHistory()
+    const history = useNavigate()
 
     const getRegister = evt => {
         evt.preventDefault()
@@ -54,7 +54,7 @@ const Modal = ({setCross}) => {
             .then(data => {
                 login(data.token, data.userId)
                 setCross(false)
-                history.push('/')
+                history('/')
             })
             .catch(err => errorMessage(err.toString()))
     }

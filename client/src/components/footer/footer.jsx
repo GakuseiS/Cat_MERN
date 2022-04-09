@@ -1,12 +1,13 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 import fLogo from './footer-logo.png';
 import './footer.scss';
 
-const Footer = (props) => {
+const Footer = () => {
+    const location = useLocation()
     const footerClass = classNames({
-        'footer__alt': props.location.pathname !== '/'
+        'footer__alt': location.pathname !== '/'
     });
     return (
         <div className='footer'>
@@ -32,4 +33,4 @@ const Footer = (props) => {
     )
 }
 
-export default withRouter(Footer);
+export default Footer;

@@ -1,7 +1,7 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import Footer from '../footer/footer';
-import Header from '../header/header';
+import Header from '../header/header.jsx';
 import MainPage from '../pages/mainPage';
 import CatalogPage from '../pages/catalogPage';
 import './App.scss';
@@ -31,14 +31,14 @@ function App() {
           <Router>
             {error && <Message>{error}</Message>}
             <Header />
-            <Switch>
-              <Route path='/catalog' component={CatalogPage} />
-              {!isAuthenticated && <Route path='/form' component={FormPage} />}
-              {isAuthenticated && <Route path='/card' component={CardPage} />}
-              {isAuthenticated && <Route path='/orders' component={OrdersPage} />}
-              <Route path='/' component={MainPage} />
-              <Redirect to='/' />
-            </Switch>
+            <Routes>
+              <Route path='catalog' element={<CatalogPage />} />
+              {!isAuthenticated && <Route path='form' element={<FormPage />} />}
+              {isAuthenticated && <Route path='card' element={<CardPage />} />}
+              {isAuthenticated && <Route path='orders' element={<OrdersPage />} />}
+              <Route path='/' element={<MainPage />} />
+              <Route path='*' to='/' />
+            </Routes>
             <Footer />
           </Router>
         </AuthContext.Provider>
