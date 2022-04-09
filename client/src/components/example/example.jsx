@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import './example.scss';
 import catWas from './Was.png';
 import catBecame from './cat2.png';
-import Range from '../range/range'
+import Slider from 'rc-slider';
 
 const Example = () => {
-    let [slider, setSlider] = useState(53);
+    let [slider, setSlider] = useState(52);
 
     return (
         <div className='example'>
@@ -30,7 +30,11 @@ const Example = () => {
                 <div className='example__right'>
                     <img className='example__catWas' src={catWas} width={`${677 * slider/100}`} height='499' alt='was' />
                     <img className='example__catBecame' src={catBecame} width={445} height='420' alt='became' />
-                    <Range setRange={setSlider} />
+                    <div className='example__slider'>
+                        <span className='example__label' onClick={() => setSlider(5)}>БЫЛО</span>
+                        <Slider value={slider} onChange={setSlider} />
+                        <span className='example__label' onClick={() => setSlider(95)}>СТАЛО</span>
+                    </div>
                 </div>
             </div>
         </div>

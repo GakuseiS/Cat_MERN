@@ -1,6 +1,6 @@
 import React from 'react';
 import Appeal from '../appeal/appeal';
-import Example from '../example/example';
+import Example from '../example/example.jsx';
 import Features from '../features/features';
 import How from '../how/how';
 

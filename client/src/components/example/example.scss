@@ -129,24 +129,98 @@
     &__catWas {
         position: absolute;
         top: -60px;
-        left: 730px;
+        left: 717px;
         object-fit: cover;
         object-position: left top;
         z-index: 5;
         @media screen and (max-width: 768px) {
             top: 450px;
-            left: 30px;
+            left: 37px;
         }
     }
 
     &__catBecame {
         position: absolute;
-        right: 125px;
+        right: 137px;
         top: -0px;
         
         @media screen and (max-width: 768px) {
             top: 505px;
             left: 180px;
+        }
+        
+    }
+
+    .rc-slider-horizontal {
+        position: relative;
+    } 
+
+    .rc-slider-rail{
+        position: relative;
+        display: inline-block;
+
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 6px;
+        width: 420px;
+
+        background-color: #dcdcdc;
+        border-radius: 5px;
+    }
+
+    .rc-slider-handle {
+        position: absolute;
+        top: -3px;
+
+        height: 34px;
+        width: 34px;
+
+        border-radius: 50%;
+        border: 1px solid #cecece;
+        box-shadow: 4px 4px 27px -7px rgba(0, 0, 0, 0.2);
+        background-image: url('./slider-control.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: white;
+        box-sizing: border-box;
+        cursor: pointer;
+        touch-action: none;
+
+        &:hover {
+            box-shadow: 4px 4px 27px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        &:active {
+            border: 2px solid #68b738;
+        }
+    }
+
+    &__slider {
+        display: flex;
+        margin-left: 20px;
+
+        @media screen and (max-width: 768px) {
+            margin-top: 350px;
+            margin-bottom: 70px;
+        }
+    }
+
+    &__label {
+        display: inline-block;
+
+        border-bottom: 1px dotted #bebebe;
+
+        font-size: 20px;
+        text-transform: uppercase;
+
+        cursor: pointer;
+
+        &:hover {
+            border-bottom: 1px solid #989898;
+        }
+
+        &:active {
+            border-bottom: none;
         }
         
     }
