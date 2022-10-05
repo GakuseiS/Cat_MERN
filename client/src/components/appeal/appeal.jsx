@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import Button from "../button/button";
+import { Button } from "../index";
 import "./appeal.scss";
-import can from "./index-can.png";
+import can from "../../assets/images/index-can.png";
 
-const Appeal = () => {
+export const Appeal = () => {
   const { isAuthenticated } = useContext(AuthContext);
   return (
     <div className="appeal">
@@ -22,5 +22,3 @@ const Appeal = () => {
     </div>
   );
 };
-
-export default Appeal;

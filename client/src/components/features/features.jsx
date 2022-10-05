@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./features.scss";
 
-const Features = () => {
+export const Features = () => {
   return (
     <div className="features">
       <div className="features__item">
@@ -39,5 +39,3 @@ const Features = () => {
     </div>
   );
 };
-
-export default Features;

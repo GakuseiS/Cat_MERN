@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { AuthContext } from "../context/AuthContext";
-import Loader from "../components/loader/loader";
+import { AuthContext } from "../../context/AuthContext";
+import { Loader } from "../../components";
 import "./ordersPage.scss";
 
 export const OrdersPage = () => {

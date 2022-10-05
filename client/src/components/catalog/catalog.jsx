@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import Button from "../button/button";
-import CatalogItem from "../catalogItem/catalogItem";
-import Loader from "../loader/loader";
+import { Button, CatalogItem, Loader } from "../index";
 import "./catalog.scss";
 
-const Catalog = () => {
+export const Catalog = () => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const mountedRef = useRef(true);
@@ -63,5 +61,3 @@ const Catalog = () => {
     </div>
   );
 };
-
-export default Catalog;

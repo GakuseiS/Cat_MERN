@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import Button from "../button/button";
+import { Button } from "../index";
 import { AuthContext } from "../../context/AuthContext";
 import "./catalogItem.scss";
 import ErrorContext from "../../context/ErrorContext";
 
-const CatalogItem = ({ id, title, img, size, taste, price }) => {
+export const CatalogItem = ({ id, title, img, size, taste, price }) => {
   const { token } = useContext(AuthContext);
   const { errorMessage } = useContext(ErrorContext);
 
@@ -54,5 +54,3 @@ const CatalogItem = ({ id, title, img, size, taste, price }) => {
     </div>
   );
 };
-
-export default CatalogItem;

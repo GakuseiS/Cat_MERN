@@ -1,7 +1,7 @@
 import React from "react";
 import "./how.scss";
 
-const How = () => {
+export const How = () => {
   return (
     <div className="how">
       <h2 className="how__title">Как это работает</h2>
@@ -29,5 +29,3 @@ const How = () => {
     </div>
   );
 };
-
-export default How;

@@ -117,7 +117,7 @@
     &-mail {
       margin-right: 85px;
       width: 485px;
-      background-image: url("./mail.svg.png");
+      background-image: url("../../assets/images/mail.svg.png");
       background-repeat: no-repeat;
       background-position: 445px 25px;
 
@@ -132,7 +132,7 @@
 
     &-tel {
       width: 470px;
-      background-image: url("./phone.svg.png");
+      background-image: url("../../assets/images/phone.svg.png");
       background-repeat: no-repeat;
       background-position: 430px 20px;
 
@@ -148,7 +148,7 @@
   &__input-radio {
     display: none;
     &:checked + label .form__custom-radio {
-      background-image: url("./radio_active.png");
+      background-image: url("../../assets/images/radio_active.png");
       background-position: center;
       background-repeat: no-repeat;
     }
@@ -311,7 +311,7 @@
     display: none;
 
     &:checked + label .form__custom-check {
-      background-image: url("./tick.svg.png");
+      background-image: url("../../assets/images/tick.svg.png");
       background-position: center;
       background-repeat: no-repeat;
     }

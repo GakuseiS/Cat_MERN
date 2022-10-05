@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorContext from "../../context/ErrorContext";
-import Button from "../button/button";
+import { Button } from "../index";
 import { useNavigate } from "react-router-dom";
 import "./modal.scss";
 
-const Modal = ({ setCross }) => {
+export const Modal = ({ setCross }) => {
   const [switcher, setSwitcher] = useState(true);
   const { login } = useContext(AuthContext);
   const { errorMessage } = useContext(ErrorContext);
@@ -126,5 +126,3 @@ const Modal = ({ setCross }) => {
     </div>
   );
 };
-
-export default Modal;

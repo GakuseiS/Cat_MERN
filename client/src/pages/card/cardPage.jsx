@@ -1,8 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import Button from "../components/button/button";
-import Loader from "../components/loader/loader";
+import { AuthContext } from "../../context/AuthContext";
+import { Button, Loader } from "../../components";
 import "./cardPage.scss";
 
 export const CardPage = () => {

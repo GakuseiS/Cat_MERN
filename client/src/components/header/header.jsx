@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
-import Modal from "../modal/modal";
+import { Modal } from "../index";
 import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import classNames from "classnames";
 import "./header.scss";
-import logoDesctop from "./logo-desktop.png";
-import logoTablet from "./logo-tablet.png";
+import logoDesktop from "../../assets/images/logo-desktop.png";
+import logoTablet from "../../assets/images/logo-tablet.png";
 import { AuthContext } from "../../context/AuthContext";
 
-const Header = () => {
+export const Header = () => {
   const location = useLocation();
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
@@ -29,7 +29,7 @@ const Header = () => {
         <Link to="/">
           <picture>
             <source srcSet={logoTablet} media="(max-width: 768px)"></source>
-            <img src={logoDesctop} alt="logo" />
+            <img src={logoDesktop} alt="logo" />
           </picture>
         </Link>
         <ul className="header__list">
@@ -99,5 +99,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

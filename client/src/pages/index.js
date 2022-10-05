@@ -1,5 +1,5 @@
-export { CardPage } from "./cardPage";
-export { CatalogPage } from "./catalogPage";
-export { FormPage } from "./formPage";
-export { MainPage } from "./mainPage";
-export { OrdersPage } from "./ordersPage";
+export { CardPage } from "./card/cardPage";
+export { CatalogPage } from "./catalog/catalogPage";
+export { FormPage } from "./form/formPage";
+export { MainPage } from "./main/mainPage";
+export { OrdersPage } from "./orders/ordersPage";

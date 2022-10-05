@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorContext from "../../context/ErrorContext";
-import Button from "../button/button";
+import { Button } from "../index";
 import "./supplement.scss";
 
-const Supplement = () => {
+export const Supplement = () => {
   const { token } = useContext(AuthContext);
   const [addons, setAddons] = useState();
   const [loading, setLoading] = useState(true);
@@ -74,5 +74,3 @@ const Supplement = () => {
     </div>
   );
 };
-
-export default Supplement;

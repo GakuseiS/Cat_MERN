@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./example.scss";
-import catWas from "./Was.png";
-import catBecame from "./cat2.png";
+import catWas from "../../assets/images/Was.png";
+import catBecame from "../../assets/images/cat2.png";
 import Slider from "rc-slider";
 
-const Example = () => {
+export const Example = () => {
   let [slider, setSlider] = useState(52);
 
   return (
@@ -56,5 +56,3 @@ const Example = () => {
     </div>
   );
 };
-
-export default Example;

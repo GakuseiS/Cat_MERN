@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Button from "../button/button";
+import { Button } from "../index";
 import "./form.scss";
 
-const Form = () => {
+export const Form = () => {
   const [status, setStatus] = useState(false);
 
   const submitHandler = async (event) => {
@@ -148,5 +148,3 @@ const Form = () => {
     </>
   );
 };
-
-export default Form;
