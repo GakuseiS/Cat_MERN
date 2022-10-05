@@ -33,7 +33,7 @@ const Form = () => {
   return (
     <>
       {status ? <p className="form__success">Ваши данные отправлены на сервер. Ожидайте нашего звонка.</p> : null}
-      <form className="form" onSubmit={submitHandler}>
+      <form className="form" autoComplete="off" onSubmit={submitHandler}>
         <h3 className="form__title">Заполните анкету и мы подберем программу питания для вашего кота</h3>
         <div className="form__wrapper">
           <div className="form__wrapper-name">

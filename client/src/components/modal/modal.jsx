@@ -103,7 +103,7 @@ const Modal = ({ setCross }) => {
         </form>
       )}
       {!switcher && (
-        <form className="modal__register" onSubmit={getRegister}>
+        <form className="modal__register" autoComplete="off" onSubmit={getRegister}>
           <p className="modal__text">Введите свои данные, чтобы зарегистрироваться</p>
           <input className="modal__input-text" name="name" placeholder="Имя" type="text" minLength="3" required />
           <input className="modal__input-text" name="email" placeholder="Логин" type="email" required />
