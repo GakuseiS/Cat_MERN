@@ -1,77 +1,78 @@
 .button {
-    height: 50px;
-    border: none;
-    box-sizing: border-box;
+  height: 50px;
+  border: none;
+  box-sizing: border-box;
 
-    font-family: 'Oswald', sans-serif;
-    font-size: 20px;
-    
-    text-transform: uppercase;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
 
-    &-medium {
-        width: 245px;
+  text-transform: uppercase;
+
+  &-medium {
+    width: 245px;
+  }
+
+  &-small {
+    width: 168px;
+  }
+
+  &-large {
+    width: 570px;
+
+    @media screen and (max-width: 768px) {
+      width: 280px;
+    }
+  }
+
+  &-gray {
+    color: #444444;
+
+    background-color: #f2f2f2;
+
+    @media screen and (max-width: 768px) {
+      width: 245px;
+      height: 40px;
+      font-size: 16px;
     }
 
-    &-small {
-        width: 168px;
-
-        
+    &:hover,
+    &:active {
+      background-color: #ebebeb;
     }
 
-    &-large {
-        width: 570px;
+    &:active {
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
 
-        @media screen and (max-width: 768px) {
-            width: 280px;
-        }
+  &-green {
+    color: #fff;
+
+    background-color: #68b738;
+
+    &:hover,
+    &:active {
+      background-color: #5eaa2f;
     }
 
-    &-gray {
-        color: #444444;
-
-        background-color: #f2f2f2;
-
-        @media screen and (max-width: 768px) {
-            width: 245px;
-            height: 40px;
-            font-size: 16px;
-        }
-
-        &:hover, &:active {
-            background-color: #ebebeb;
-        }
-
-        &:active {
-            color: rgba(0, 0, 0, 0.3);
-        }
+    &:active {
+      color: rgba(255, 255, 255, 0.3);
     }
+  }
 
-    &-green {
-        color: #fff;
+  &-catalog {
+    height: 40px;
+    font-size: 16px;
 
-        background-color: #68b738;
-
-        &:hover, &:active {
-            background-color: #5eaa2f;
-        }
-
-        &:active {
-            color: rgba(255, 255, 255, 0.3);
-        }
+    @media screen and (max-width: 768px) {
+      width: 245px;
     }
-
-    &-catalog {
-        height: 40px;
-        font-size: 16px;
-
-        @media screen and (max-width: 768px) {
-            width: 245px;
-        }
-    }
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .button-catalog.button-medium {
-        width: 630px;
-    }
+  .button-catalog.button-medium {
+    width: 630px;
+  }
 }

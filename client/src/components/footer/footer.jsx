@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import classNames from "classnames";
 import fLogo from "./footer-logo.png";
 import "./footer.scss";
@@ -31,7 +31,9 @@ const Footer = () => {
         ></iframe>
       </div>
       <div className="footer__bottom">
-        <img width="130" height="25px" src={fLogo} alt="logo" />
+        <Link to="/">
+          <img width="130" height="25px" src={fLogo} alt="logo" />
+        </Link>
         <ul className="footer__social">
           <li className="footer__list-item">
             <a className="footer__social-item footer__social-item--vk" href="https://vk.com">
