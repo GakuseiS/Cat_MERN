@@ -9,27 +9,33 @@ export const OrdersPage = () => {
   const { token } = useContext(AuthContext);
   const mountedRef = useRef(true);
 
-  const setDate = (date) => {
-    return new Intl.DateTimeFormat("ru-RU", {
+  const setDate = (date) =>
+    new Intl.DateTimeFormat("ru-RU", {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
     }).format(new Date(date));
+
+  const fetchOrders = async () => {
+    try {
+      const { data, status } = fetch("/api/orders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (status === 200) {
+        if (!mountedRef.current) return null;
+        setOrders(data.orders.order);
+      }
+    } catch (err) {
+      console.error("Ошибка получения заказов");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetch("/api/orders", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (!mountedRef.current) return null;
-        setOrders(data.orders.order);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    fetchOrders();
     return () => {
       mountedRef.current = false;
     };

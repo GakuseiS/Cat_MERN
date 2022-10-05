@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Button, Loader } from "../../components";
@@ -10,59 +10,75 @@ export const CardPage = () => {
   const [card, setCard] = useState({});
   const [loading, setLoading] = useState(true);
   const mountedRef = useRef(true);
-  const getCard = useCallback(() => {
-    fetch("/api/card", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
+
+  const getCard = async () => {
+    try {
+      const { data, status } = fetch("/api/card", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (status === 200) {
         if (!mountedRef.current) return null;
         setCard(data.basket);
-        setLoading(false);
+      }
+    } catch (err) {
+      console.error("Ошибка получения корзины");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearCard = async (evt) => {
+    evt.preventDefault();
+    try {
+      const { status } = await fetch("/api/card", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-  }, [token]);
-
-  const clearCard = (evt) => {
-    evt.preventDefault();
-    fetch("/api/card", {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
+      if (status === 200) {
         setLoading(true);
-      })
-      .catch((err) => console.log(err));
+      }
+    } catch (err) {
+      console.error("Ошибка очищения корзины");
+    }
   };
 
-  const deleteItem = (evt) => {
-    fetch("/api/card/" + evt.target.dataset.id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
+  const deleteItem = async (evt) => {
+    try {
+      const { status } = await fetch("/api/card/" + evt.target.dataset.id, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (status === 200) {
         setLoading(true);
-      })
-      .catch((err) => console.log(err));
+      }
+    } catch (err) {
+      console.error("Ошибка удаления из корзины");
+    }
   };
 
-  const getOrder = (evt) => {
+  const postOrder = async (evt) => {
     evt.preventDefault();
-    fetch("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(card),
-    }).then((res) => history("/orders"));
+    try {
+      const { status } = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(card),
+      });
+      if (status === 200) {
+        history("/orders");
+      }
+    } catch (err) {
+      console.error("Ошибка отправки заказа");
+    }
   };
 
   useEffect(() => {
@@ -70,7 +86,7 @@ export const CardPage = () => {
     return () => {
       mountedRef.current = false;
     };
-  }, [getCard]);
+  }, []);
 
   if (loading) {
     return (
@@ -96,7 +112,7 @@ export const CardPage = () => {
             ))}
           </ol>
           {<p className="cardPage__price">Общая стоимость: {card.allPrice} руб.</p>}
-          <form className="cardPage__order" method="POST" onSubmit={getOrder}>
+          <form className="cardPage__order" method="POST" onSubmit={postOrder}>
             <Button>Сделать заказ</Button>
           </form>
           <form className="cardPage__clear" method="POST" onSubmit={clearCard}>
