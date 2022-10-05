@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../modal/modal";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import classNames from "classnames";
 import "./header.scss";
 import logoDesctop from "./logo-desktop.png";
@@ -26,10 +26,12 @@ const Header = () => {
   return (
     <>
       <nav className="header">
-        <picture>
-          <source srcSet={logoTablet} media="(max-width: 768px)"></source>
-          <img src={logoDesctop} alt="logo" />
-        </picture>
+        <Link to="/">
+          <picture>
+            <source srcSet={logoTablet} media="(max-width: 768px)"></source>
+            <img src={logoDesctop} alt="logo" />
+          </picture>
+        </Link>
         <ul className="header__list">
           <li className="header__item">
             <NavLink className={({ isActive }) => (isActive ? `${links} ${active}` : links)} to="/" end>

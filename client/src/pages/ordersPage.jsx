@@ -47,8 +47,7 @@ export const OrdersPage = () => {
     <div className="ordersPage">
       <h1 className="ordersPage__title">Заказы</h1>
       {!loading &&
-        orders &&
-        orders.map((order) => {
+        orders?.map((order) => {
           return (
             <div key={order._id}>
               <p>Время заказа {setDate(order.date)}</p>

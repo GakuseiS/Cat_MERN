@@ -27,14 +27,21 @@ const Supplement = () => {
       .then((data) => errorMessage(data.message));
   };
 
-  useEffect(() => {
-    fetch("/api/addons")
-      .then((res) => res.json())
-      .then((data) => {
+  const getAddons = async () => {
+    try {
+      const { data, status } = await fetch("/api/addons");
+      if (status === 200) {
         if (!mountedRef.current) return null;
         setAddons(data.addons);
         setLoading(false);
-      });
+      }
+    } catch (err) {
+      console.log("Ошибка получения аддонов");
+    }
+  };
+
+  useEffect(() => {
+    getAddons();
     return () => {
       mountedRef.current = false;
     };
