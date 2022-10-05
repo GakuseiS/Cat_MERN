@@ -1,12 +1,12 @@
-import React from 'react'
-import './loader.scss'
+import React from "react";
+import "./loader.scss";
 
 const Loader = () => {
-    return (
-        <div className="spin-wrapper">
-            <div className="spinner"></div>
-        </div>
-    )
-}
+  return (
+    <div className="spin-wrapper">
+      <div className="spinner"></div>
+    </div>
+  );
+};
 
-export default Loader
+export default Loader;
