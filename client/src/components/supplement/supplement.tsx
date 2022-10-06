@@ -4,9 +4,16 @@ import ErrorContext from "../../context/ErrorContext";
 import { Button } from "../index";
 import "./supplement.scss";
 
+type TAddon = {
+  _id: string;
+  title: string;
+  price: string;
+  size: string;
+};
+
 export const Supplement = () => {
   const { token } = useContext(AuthContext);
-  const [addons, setAddons] = useState();
+  const [addons, setAddons] = useState<TAddon[] | null>(null);
   const [loading, setLoading] = useState(true);
   const { errorMessage } = useContext(ErrorContext);
   const mountedRef = useRef(true);
@@ -29,10 +36,10 @@ export const Supplement = () => {
 
   const getAddons = async () => {
     try {
-      const { data, status } = await fetch("/api/addons");
+      const { body, status } = await fetch("/api/addons");
       if (status === 200) {
         if (!mountedRef.current) return null;
-        setAddons(data.addons);
+        setAddons((body as any).addons);
         setLoading(false);
       }
     } catch (err) {
@@ -52,7 +59,7 @@ export const Supplement = () => {
       <div className="sup__content">
         <ul className="sup__list">
           {!loading &&
-            addons.map((addon) => {
+            addons?.map((addon) => {
               return (
                 <li key={addon._id} className="sup__list-item">
                   <span className="sup__item-title">{addon.title}</span> <span className="sup__size">{addon.size}</span>{" "}

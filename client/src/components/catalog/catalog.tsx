@@ -2,17 +2,26 @@ import React, { useEffect, useState, useRef } from "react";
 import { Button, CatalogItem, Loader } from "../index";
 import "./catalog.scss";
 
+type TCards = {
+  _id: string;
+  title: string;
+  img: string;
+  size: string;
+  taste: string;
+  price: string;
+};
+
 export const Catalog = () => {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState<TCards[] | null>(null);
   const [loading, setLoading] = useState(true);
   const mountedRef = useRef(true);
 
   const getCards = async () => {
     try {
-      const { status, data } = await fetch("api/cards");
+      const { status, body } = await fetch("api/cards");
       if (status === 200) {
         if (!mountedRef.current) return null;
-        setCards(data);
+        setCards(body as any);
         setLoading(false);
       }
     } catch (err) {

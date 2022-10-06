@@ -4,23 +4,35 @@ import { AuthContext } from "../../context/AuthContext";
 import { Button, Loader } from "../../components";
 import "./cardPage.scss";
 
+type TCard = {
+  allPrice: number;
+  items: {
+    _id: string;
+    title: string;
+    size: string;
+    taste: string;
+    price: string;
+    count: string;
+  }[];
+};
+
 export const CardPage = () => {
   let history = useNavigate();
   const { token } = useContext(AuthContext);
-  const [card, setCard] = useState({});
+  const [card, setCard] = useState<TCard | null>(null);
   const [loading, setLoading] = useState(true);
   const mountedRef = useRef(true);
 
   const getCard = async () => {
     try {
-      const { data, status } = fetch("/api/card", {
+      const { body, status } = await fetch("/api/card", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (status === 200) {
         if (!mountedRef.current) return null;
-        setCard(data.basket);
+        setCard((body as any).basket);
       }
     } catch (err) {
       console.error("Ошибка получения корзины");
@@ -102,7 +114,7 @@ export const CardPage = () => {
       {!loading && card?.allPrice !== 0 && (
         <div>
           <ol className="cardPage__list">
-            {card.items.map((item) => (
+            {card?.items.map((item) => (
               <li key={item._id} className="cardPage__item">
                 {item.title} {item.size} {item.taste} - {item.price} руб. - {item.count} шт.
                 <button title="Удалить из корзины" data-id={item._id} onClick={deleteItem} className="cardPage__delete">
@@ -111,7 +123,7 @@ export const CardPage = () => {
               </li>
             ))}
           </ol>
-          {<p className="cardPage__price">Общая стоимость: {card.allPrice} руб.</p>}
+          {<p className="cardPage__price">Общая стоимость: {card?.allPrice} руб.</p>}
           <form className="cardPage__order" method="POST" onSubmit={postOrder}>
             <Button>Сделать заказ</Button>
           </form>
@@ -120,7 +132,7 @@ export const CardPage = () => {
           </form>
         </div>
       )}
-      {!loading && card.allPrice === 0 ? <p>Ваша корзина пуста</p> : null}
+      {!loading && card?.allPrice === 0 ? <p>Ваша корзина пуста</p> : null}
     </div>
   );
 };

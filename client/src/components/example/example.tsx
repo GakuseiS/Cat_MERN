@@ -18,16 +18,11 @@ export const Example = () => {
           </p>
           <div className="example__wrapper">
             <fieldset className="example__fancy">
-              <legend className="example__legend" align="center">
-                Снижение веса
-              </legend>
+              <legend className="example__legend">Снижение веса</legend>
               <span className="example__numbers">5 кг</span>
             </fieldset>
             <fieldset className="example__fancy">
-              <legend className="example__legend" align="center">
-                {" "}
-                Затрачено времени{" "}
-              </legend>
+              <legend className="example__legend"> Затрачено времени </legend>
               <span className="example__numbers">60 дней</span>
             </fieldset>
             <p className="example__cost example__cost--table">
@@ -46,7 +41,7 @@ export const Example = () => {
             <span className="example__label" onClick={() => setSlider(5)}>
               БЫЛО
             </span>
-            <Slider value={slider} onChange={setSlider} />
+            <Slider value={slider} onChange={(value) => setSlider(value as number)} />
             <span className="example__label" onClick={() => setSlider(95)}>
               СТАЛО
             </span>

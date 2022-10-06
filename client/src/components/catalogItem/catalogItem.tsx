@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FormEvent, useContext } from "react";
 import { Button } from "../index";
 import { AuthContext } from "../../context/AuthContext";
 import "./catalogItem.scss";
@@ -8,10 +8,10 @@ export const CatalogItem = ({ id, title, img, size, taste, price }) => {
   const { token } = useContext(AuthContext);
   const { errorMessage } = useContext(ErrorContext);
 
-  const getId = async (evt) => {
+  const getId = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
-      const { status, data } = await fetch("/api/card", {
+      const { status, body } = await fetch("/api/card", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const CatalogItem = ({ id, title, img, size, taste, price }) => {
         },
         body: JSON.stringify({ id }),
       });
-      if (status === 200) errorMessage(data.message);
+      if (status === 200) errorMessage((body as any).message);
     } catch (err) {
       console.error("Ошибка заказа");
     }

@@ -19,7 +19,7 @@ export const Modal = ({ setCross }) => {
       obj[i] = item;
     });
     try {
-      const { status, data } = await fetch("/api/users/register", {
+      const { status, body } = await fetch("/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const Modal = ({ setCross }) => {
         body: JSON.stringify(obj),
       });
       if (status === 200) {
-        errorMessage(data.message);
+        errorMessage((body as any).message);
       }
     } catch (err) {
       console.error("Ошибка регистрации");
@@ -88,13 +88,13 @@ export const Modal = ({ setCross }) => {
       {switcher && (
         <form className="modal__login" onSubmit={getLogin}>
           <p className="modal__text">Введите свой логин и пароль, чтобы войти</p>
-          <input className="modal__input-text" name="email" placeholder="Логин" type="email" minLength="3" required />
+          <input className="modal__input-text" name="email" placeholder="Логин" type="email" minLength={3} required />
           <input
             className="modal__input-text"
             name="password"
             placeholder="Пароль"
             type="password"
-            minLength="6"
+            minLength={6}
             required
           />
           <div className="modal__wrapper">
@@ -105,14 +105,14 @@ export const Modal = ({ setCross }) => {
       {!switcher && (
         <form className="modal__register" autoComplete="off" onSubmit={getRegister}>
           <p className="modal__text">Введите свои данные, чтобы зарегистрироваться</p>
-          <input className="modal__input-text" name="name" placeholder="Имя" type="text" minLength="3" required />
+          <input className="modal__input-text" name="name" placeholder="Имя" type="text" minLength={3} required />
           <input className="modal__input-text" name="email" placeholder="Логин" type="email" required />
           <input
             className="modal__input-text"
             name="password"
             placeholder="Пароль"
             type="password"
-            minLength="6"
+            minLength={6}
             required
           />
           <div className="modal__wrapper">
