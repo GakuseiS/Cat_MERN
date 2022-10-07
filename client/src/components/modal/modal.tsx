@@ -23,45 +23,47 @@ export const Modal = ({ setCross }: ModalProps) => {
       obj[i] = item as string;
     });
     try {
-      const { status, body } = await fetch("/api/users/register", {
+      const res = await fetch("/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(obj),
       });
-      if (status === 200) {
-        errorMessage((body as any).message);
+      if (res.status === 200) {
+        errorMessage((await res.json()).message);
       }
     } catch (err) {
       console.error("Ошибка регистрации");
     }
   };
 
-  const getLogin = (evt: any) => {
+  const getLogin = async (evt: any) => {
     evt.preventDefault();
     const obj: { [key: string]: string } = {};
     const data = new FormData(evt.target);
     data.forEach((item, i) => {
       obj[i] = item as string;
     });
-    fetch("/api/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(obj),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Такого логина или пароля не существует.");
-        return res.json();
-      })
-      .then((data) => {
+    try {
+      const res = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+      const data = await res.json();
+      if (res.status === 200) {
         login(data.token, data.userId);
         setCross(false);
         history("/");
-      })
-      .catch((err) => errorMessage(err.toString()));
+      } else {
+        errorMessage(data.message);
+      }
+    } catch (err) {
+      console.error("Ошибка авторизации");
+    }
   };
 
   return (

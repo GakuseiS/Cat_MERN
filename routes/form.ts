@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check, validationResult } from "express-validator";
-const Programm = require("../models/Programm");
+import { prisma } from "../app";
 const router = Router();
 
 router.post(
@@ -12,19 +12,25 @@ router.post(
       return res.status(400).json({ message: "Ошибка в заполнении формы" });
     }
     try {
-      const form = new Programm({
-        name: req.body.name,
-        weight: req.body.weight,
-        age: req.body.age,
-        type: req.body.type,
-        email: req.body.email,
-        tel: req.body.tel,
-        comment: req.body.comment,
-        addon: { sugar: req.body.sugar, water: req.body.water, milk: req.body.milk, vitamin: req.body.vitamin },
+      const { name, weight, age, type, email, tel, comment, sugar, water, milk, vitamin } = req.body;
+      await prisma.program.create({
+        data: {
+          name,
+          weight: +weight,
+          age: +age,
+          type,
+          email,
+          tel,
+          comment,
+          addon_sugar: sugar,
+          addon_water: water,
+          addon_milk: milk,
+          addon_vitamin: vitamin,
+        },
       });
-      await form.save();
       res.json({ message: "Данные успешно отправлены на сервер" });
     } catch (e) {
+      console.log(e);
       res.status(400).json({ message: "Что-то пошло не так" });
     }
   }

@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+// model User {
+//   id    Int     @id @default(autoincrement())
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+  name String
+  // basket Basket? @relation(fields: [basketId], references: [id])
+  // basketId Int
+  // orders Order[]? @relation(fields: [orderId], references: [id])
+  // orderId Int
+}
+
+model Card {
+  id Int @id @default(autoincrement())
+  title String
+  img String
+  size String
+  taste String
+  price Float
+}
+
+model Addon {
+  id Int @id @default(autoincrement())
+  title String
+  size String
+  price Float
+}
+
+model Program {
+  id Int @id @default(autoincrement())
+  name String
+  weight Float
+  age Int
+  type String
+  email String
+  tel String
+  comment String?
+  addon_sugar String?
+  addon_water String?
+  addon_milk String?
+  addon_vitamin String?
+}
+
+// model Post {
+//   id        Int     @id @default(autoincrement())
+//   title     String
+//   content   String?
+//   published Boolean @default(false)
+//   author    User    @relation(fields: [authorId], references: [id])
+//   authorId  Int
+// }

@@ -1,10 +1,10 @@
 import { Router } from "express";
-const Card = require("../models/Card");
+import { prisma } from "../app";
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const cards = await Card.find();
+    const cards = await prisma.card.findMany();
     res.json(cards);
   } catch (e) {
     res.status(400).json({ message: `Что-то пошло не так` });

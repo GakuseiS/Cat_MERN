@@ -18,10 +18,10 @@ export const Catalog = () => {
 
   const getCards = async () => {
     try {
-      const { status, body } = await fetch("api/cards");
-      if (status === 200) {
+      const res = await fetch("api/cards");
+      if (res.status === 200) {
         if (!mountedRef.current) return null;
-        setCards(body as any);
+        setCards((await res.json()) as any);
         setLoading(false);
       }
     } catch (err) {

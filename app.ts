@@ -1,9 +1,9 @@
 import express, { Request, Response, Application } from "express";
-// const mongoose = require("mongoose");
-// const keys = require('./keys/index')
+import { PrismaClient } from "@prisma/client";
 import path from "path";
 import cors from "cors";
 
+export const prisma = new PrismaClient();
 const PORT = process.env.PORT || 5000;
 const app: Application = express();
 
@@ -23,12 +23,7 @@ app.get("*", function (req: Request, res: Response) {
 
 const start = async () => {
   try {
-    // await mongoose.connect(keys.MONGODB_URI, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    //   useCreateIndex: true,
-    // });
-
+    await prisma.$connect();
     app.listen(PORT, () => {
       console.log(`Server has been started on port ${PORT}`);
     });
@@ -37,4 +32,12 @@ const start = async () => {
   }
 };
 
-start();
+start()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

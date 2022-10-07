@@ -36,10 +36,10 @@ export const Supplement = () => {
 
   const getAddons = async () => {
     try {
-      const { body, status } = await fetch("/api/addons");
-      if (status === 200) {
+      const res = await fetch("/api/addons");
+      if (res.status === 200) {
         if (!mountedRef.current) return null;
-        setAddons((body as any).addons);
+        setAddons(await res.json());
         setLoading(false);
       }
     } catch (err) {

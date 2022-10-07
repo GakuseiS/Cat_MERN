@@ -1,9 +1,9 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const User = require("../models/User");
-const keys = require("../keys/index");
 import { check, validationResult } from "express-validator";
+import { prisma } from "../app";
+import { keys } from "../keys/keys";
 const router = Router();
 
 router.post(
@@ -22,13 +22,12 @@ router.post(
       }
 
       const { name, email, password } = req.body;
-      const candidate = await User.findOne({ email });
+      const candidate = await prisma.user.findFirst({ where: { email } });
       if (candidate) {
         return res.status(400).json({ message: "Такой пользователь существует" });
       }
       const hashPassword = await bcrypt.hash(password, 12);
-      const user = new User({ email, name, password: hashPassword });
-      await user.save();
+      await prisma.user.create({ data: { name, email, password: hashPassword } });
       res.json({ message: "Пользователь успешно зарегистрирован" });
     } catch (e) {
       res.status(400).json({ message: "Что-то пошло не так" });
@@ -48,7 +47,7 @@ router.post(
       }
 
       const { email, password } = req.body;
-      const candidate = await User.findOne({ email });
+      const candidate = await prisma.user.findFirst({ where: { email } });
 
       if (!candidate) {
         return res.status(400).json({ message: "Такого пользователя нет в системе" });
@@ -60,9 +59,9 @@ router.post(
         return res.status(400).json({ message: "Такого пользователя нет в системе" });
       }
 
-      const token = jwt.sign({ id: candidate._id }, keys.SESSION_SECRET);
+      const token = jwt.sign({ id: candidate.id }, keys.SESSION_SECRET);
 
-      res.json({ token, userId: candidate._id });
+      res.json({ token, userId: candidate.id });
     } catch (e) {
       res.status(400).json({ message: "Что-то пошло не так" });
     }
