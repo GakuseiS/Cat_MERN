@@ -41,7 +41,7 @@ export const CardPage = () => {
     }
   };
 
-  const clearCard = async (evt) => {
+  const clearCard = async (evt: any) => {
     evt.preventDefault();
     try {
       const { status } = await fetch("/api/card", {
@@ -58,7 +58,7 @@ export const CardPage = () => {
     }
   };
 
-  const deleteItem = async (evt) => {
+  const deleteItem = async (evt: any) => {
     try {
       const { status } = await fetch("/api/card/" + evt.target.dataset.id, {
         method: "DELETE",
@@ -74,7 +74,7 @@ export const CardPage = () => {
     }
   };
 
-  const postOrder = async (evt) => {
+  const postOrder = async (evt: any) => {
     evt.preventDefault();
     try {
       const { status } = await fetch("/api/orders", {

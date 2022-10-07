@@ -18,7 +18,7 @@ export const Supplement = () => {
   const { errorMessage } = useContext(ErrorContext);
   const mountedRef = useRef(true);
 
-  const getId = (evt) => {
+  const getId = (evt: any) => {
     evt.preventDefault();
     const id = evt.currentTarget.dataset.id;
 

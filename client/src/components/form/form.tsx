@@ -5,12 +5,14 @@ import "./form.scss";
 export const Form = () => {
   const [status, setStatus] = useState(false);
 
-  const submitHandler = async (event) => {
+  const submitHandler = async (event: any) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    let object = {};
-    formData.forEach((value, key) => (object[key] = value));
+    let object: { [key: string]: string } = {};
+    formData.forEach((value, key) => {
+      if (typeof key === "string") object[key] = value as string;
+    });
     let json = JSON.stringify(object);
     try {
       const { status } = await fetch("api/form", {

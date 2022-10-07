@@ -5,18 +5,22 @@ import { Button } from "../index";
 import { useNavigate } from "react-router-dom";
 import "./modal.scss";
 
-export const Modal = ({ setCross }) => {
+interface ModalProps {
+  setCross: Function;
+}
+
+export const Modal = ({ setCross }: ModalProps) => {
   const [switcher, setSwitcher] = useState(true);
   const { login } = useContext(AuthContext);
   const { errorMessage } = useContext(ErrorContext);
   const history = useNavigate();
 
-  const getRegister = async (evt) => {
+  const getRegister = async (evt: any) => {
     evt.preventDefault();
-    const obj = {};
+    const obj: { [key: string]: string } = {};
     const data = new FormData(evt.target);
     data.forEach((item, i) => {
-      obj[i] = item;
+      obj[i] = item as string;
     });
     try {
       const { status, body } = await fetch("/api/users/register", {
@@ -34,12 +38,12 @@ export const Modal = ({ setCross }) => {
     }
   };
 
-  const getLogin = (evt) => {
+  const getLogin = (evt: any) => {
     evt.preventDefault();
-    const obj = {};
+    const obj: { [key: string]: string } = {};
     const data = new FormData(evt.target);
     data.forEach((item, i) => {
-      obj[i] = item;
+      obj[i] = item as string;
     });
     fetch("/api/users/login", {
       method: "POST",

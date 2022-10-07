@@ -4,7 +4,16 @@ import { AuthContext } from "../../context/AuthContext";
 import "./catalogItem.scss";
 import ErrorContext from "../../context/ErrorContext";
 
-export const CatalogItem = ({ id, title, img, size, taste, price }) => {
+interface CatalogItemProps {
+  id: string;
+  title: string;
+  img: string;
+  size: string;
+  taste: string;
+  price: string;
+}
+
+export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemProps) => {
   const { token } = useContext(AuthContext);
   const { errorMessage } = useContext(ErrorContext);
 
