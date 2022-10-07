@@ -1,48 +1,48 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require("mongoose");
 
 const schema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    weight: {
-        type: Number,
-        required: true
-    },
-    age: {
-        type: Number
-    },
+  name: {
+    type: String,
+    required: true,
+  },
+  weight: {
+    type: Number,
+    required: true,
+  },
+  age: {
+    type: Number,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  tel: {
+    type: String,
+    required: true,
+  },
+  comment: {
+    type: String,
+  },
+  addon: {
     type: {
+      sugar: {
         type: String,
-        required: true
-    },
-    email: {
+      },
+      water: {
         type: String,
-        required: true
-    },
-    tel: {
+      },
+      milk: {
         type: String,
-        required: true
+      },
+      vitamin: {
+        type: String,
+      },
     },
-    comment: {
-        type: String
-    },
-    addon: {
-        type: {
-            sugar: {
-                type: String
-            },
-            water: {
-                type: String
-            },
-            milk: {
-                type: String
-            },
-            vitamin: {
-                type: String
-            }
-        }
-    }
-})
+  },
+});
 
-module.exports = model('Programm', schema)
+module.exports = model("Programm", schema);

@@ -1,37 +1,36 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require("mongoose");
 
 const schema = new Schema({
-    order: [
+  order: [
+    {
+      allPrice: Number,
+      items: [
         {
-            allPrice: Number,
-            items: [
-                { 
-                    count: Number,
-                    title: String,
-                    size: String,
-                    taste: String,
-                    price: Number
-                }
+          count: Number,
+          title: String,
+          size: String,
+          taste: String,
+          price: Number,
+        },
+      ],
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 
-            ],
-            date: {
-                type: Date,
-                default: Date.now
-            }
-        }
-    ],
-
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
-})
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
 
 schema.addOrder = (order) => {
-    if(order) {
-        this.order.push(order.order)
-    } 
-    return this.save()
-}
+  if (order) {
+    this.order.push(order.order);
+  }
+  return this.save();
+};
 
-module.exports = model('Orders', schema)
+module.exports = model("Orders", schema);

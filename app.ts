@@ -1,11 +1,11 @@
-const express = require("express");
+import express, { Request, Response, Application } from "express";
 // const mongoose = require("mongoose");
 // const keys = require('./keys/index')
-const path = require("path");
-const cors = require("cors");
+import path from "path";
+import cors from "cors";
 
 const PORT = process.env.PORT || 5000;
-const app = express();
+const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use("/api/card", require("./routes/basket"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/api/addons", require("./routes/addons"));
 app.use("/api/users", require("./routes/user"));
-app.get("*", function (req, res) {
+app.get("*", function (req: Request, res: Response) {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
