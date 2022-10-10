@@ -1,7 +1,7 @@
 import { Router } from "express";
 const Basket = require("../models/Basket");
 const Orders = require("../models/Orders");
-const auth = require("../middlewares/auth");
+import { auth } from "../middlewares/auth";
 const router = Router();
 
 router.post("/", auth, async (req: any, res) => {

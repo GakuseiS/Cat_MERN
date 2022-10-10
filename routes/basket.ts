@@ -1,20 +1,22 @@
-import { Router, Request } from "express";
+import { prismaClient } from "../app";
+import { Router } from "express";
 const Addons = require("../models/Addons");
 const Basket = require("../models/Basket");
 const Card = require("../models/Card");
-const auth = require("../middlewares/auth");
+import { auth } from "../middlewares/auth";
 const router = Router();
 
 router.get("/", auth, async (req: any, res) => {
   try {
-    let basket = await Basket.findOne({ userId: req.user.id });
+    console.log(req);
+    let basket = await prismaClient.basket.findFirst({ where: { user: { id: +req.user.id } } });
     if (!basket) {
       return res.json({ basket: { allPrice: 0 } });
     }
 
     res.json({ basket });
   } catch (e) {
-    res.json({ message: "Ошибка" });
+    res.json({ message: "test" });
   }
 });
 

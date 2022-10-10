@@ -42,17 +42,17 @@ export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemP
       <h3 className="catalogItem__title">
         {title}
         <br />
-        {size}
+        {size} Г
       </h3>
       <ul className="catalogItem__list">
         <li className="catalogItem__list-item">
-          Объем <span>{size}</span>
+          Объем <span>{size} г</span>
         </li>
         <li className="catalogItem__list-item">
           Вкус <span>{taste}</span>
         </li>
         <li className="catalogItem__list-item">
-          Цена <span>{price} Р.</span>
+          Цена <span>{price} ₽</span>
         </li>
       </ul>
       <form onSubmit={getId}>

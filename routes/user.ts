@@ -2,7 +2,7 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
-import { prisma } from "../app";
+import { prismaClient } from "../app";
 import { keys } from "../keys/keys";
 const router = Router();
 
@@ -22,12 +22,12 @@ router.post(
       }
 
       const { name, email, password } = req.body;
-      const candidate = await prisma.user.findFirst({ where: { email } });
+      const candidate = await prismaClient.user.findFirst({ where: { email } });
       if (candidate) {
         return res.status(400).json({ message: "Такой пользователь существует" });
       }
       const hashPassword = await bcrypt.hash(password, 12);
-      await prisma.user.create({ data: { name, email, password: hashPassword } });
+      await prismaClient.user.create({ data: { name, email, password: hashPassword } });
       res.json({ message: "Пользователь успешно зарегистрирован" });
     } catch (e) {
       res.status(400).json({ message: "Что-то пошло не так" });
@@ -47,7 +47,7 @@ router.post(
       }
 
       const { email, password } = req.body;
-      const candidate = await prisma.user.findFirst({ where: { email } });
+      const candidate = await prismaClient.user.findFirst({ where: { email } });
 
       if (!candidate) {
         return res.status(400).json({ message: "Такого пользователя нет в системе" });

@@ -63,7 +63,7 @@ export const Supplement = () => {
               return (
                 <li key={addon._id} className="sup__list-item">
                   <span className="sup__item-title">{addon.title}</span> <span className="sup__size">{addon.size}</span>{" "}
-                  <span className="sup__price">{addon.price} Р.</span>
+                  <span className="sup__price">{addon.price} ₽</span>
                   <form className="sup__form" method="POST" onSubmit={getId} data-id={addon._id}>
                     <Button page="catalog">Заказать</Button>
                   </form>

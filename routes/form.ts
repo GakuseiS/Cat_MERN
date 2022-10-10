@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check, validationResult } from "express-validator";
-import { prisma } from "../app";
+import { prismaClient } from "../app";
 const router = Router();
 
 router.post(
@@ -13,7 +13,7 @@ router.post(
     }
     try {
       const { name, weight, age, type, email, tel, comment, sugar, water, milk, vitamin } = req.body;
-      await prisma.program.create({
+      await prismaClient.program.create({
         data: {
           name,
           weight: +weight,

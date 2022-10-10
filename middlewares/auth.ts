@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-const jwt = require("jsonwebtoken");
+import { Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 import { keys } from "../keys/keys";
 
-module.exports = (req: any, res: Response, next: NextFunction) => {
+export const auth = (req: any, res: Response, next: NextFunction) => {
   if (req.method === "OPTIONS") {
     next();
   }
