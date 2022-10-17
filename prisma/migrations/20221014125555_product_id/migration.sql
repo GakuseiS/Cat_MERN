@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `CardItem` ADD COLUMN `productId` INTEGER NOT NULL DEFAULT 1,
+    MODIFY `taste` VARCHAR(191) NULL;

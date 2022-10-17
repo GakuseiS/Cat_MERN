@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorContext from "../../context/ErrorContext";
 import { Button } from "../index";
 import "./supplement.scss";
 
 type TAddon = {
-  _id: string;
+  id: string;
   title: string;
   price: string;
   size: string;
@@ -14,11 +14,9 @@ type TAddon = {
 export const Supplement = () => {
   const { token } = useContext(AuthContext);
   const [addons, setAddons] = useState<TAddon[] | null>(null);
-  const [loading, setLoading] = useState(true);
   const { errorMessage } = useContext(ErrorContext);
-  const mountedRef = useRef(true);
 
-  const getId = (evt: any) => {
+  const sendSupplementToCard: React.FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
     const id = evt.currentTarget.dataset.id;
 
@@ -34,13 +32,11 @@ export const Supplement = () => {
       .then((data) => errorMessage(data.message));
   };
 
-  const getAddons = async () => {
+  const getAddons = async (signal: AbortSignal) => {
     try {
-      const res = await fetch("/api/addons");
+      const res = await fetch("/api/addons", { signal });
       if (res.status === 200) {
-        if (!mountedRef.current) return null;
         setAddons(await res.json());
-        setLoading(false);
       }
     } catch (err) {
       console.log("Ошибка получения аддонов");
@@ -48,28 +44,29 @@ export const Supplement = () => {
   };
 
   useEffect(() => {
-    getAddons();
+    const controller = new AbortController();
+    getAddons(controller.signal);
     return () => {
-      mountedRef.current = false;
+      controller.abort();
     };
   }, []);
+
   return (
     <div className="sup">
       <h2 className="sup__title">Дополнительные товары</h2>
       <div className="sup__content">
         <ul className="sup__list">
-          {!loading &&
-            addons?.map((addon) => {
-              return (
-                <li key={addon._id} className="sup__list-item">
-                  <span className="sup__item-title">{addon.title}</span> <span className="sup__size">{addon.size}</span>{" "}
-                  <span className="sup__price">{addon.price} ₽</span>
-                  <form className="sup__form" method="POST" onSubmit={getId} data-id={addon._id}>
-                    <Button page="catalog">Заказать</Button>
-                  </form>
-                </li>
-              );
-            })}
+          {addons?.map((addon) => {
+            return (
+              <li key={addon.id} className="sup__list-item">
+                <span className="sup__item-title">{addon.title}</span> <span className="sup__size">{addon.size}</span>{" "}
+                <span className="sup__price">{addon.price} ₽</span>
+                <form className="sup__form" method="POST" onSubmit={sendSupplementToCard} data-id={addon.id}>
+                  <Button page="catalog">Заказать</Button>
+                </form>
+              </li>
+            );
+          })}
         </ul>
         <div className="sup__all">
           <p className="sup__all-text">

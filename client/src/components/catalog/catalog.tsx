@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, CatalogItem, Loader } from "../index";
 import "./catalog.scss";
 
 type TCards = {
-  _id: string;
+  id: string;
   title: string;
   img: string;
   size: string;
@@ -13,27 +13,24 @@ type TCards = {
 
 export const Catalog = () => {
   const [cards, setCards] = useState<TCards[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const mountedRef = useRef(true);
+  const [loading, setLoading] = useState(false);
 
   const getCards = async () => {
+    setLoading(true);
     try {
       const res = await fetch("api/cards");
       if (res.status === 200) {
-        if (!mountedRef.current) return null;
-        setCards((await res.json()) as any);
-        setLoading(false);
+        setCards(await res.json());
       }
     } catch (err) {
       console.error("Ошибка загрузки карточек");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getCards();
-    return () => {
-      mountedRef.current = false;
-    };
   }, []);
 
   if (loading) {
@@ -48,13 +45,13 @@ export const Catalog = () => {
     <div className="catalog">
       {cards?.map((item) => (
         <CatalogItem
-          key={item._id}
+          key={item.id}
           title={item.title}
           img={item.img}
           size={item.size}
           taste={item.taste}
           price={item.price}
-          id={item._id}
+          id={item.id}
         />
       ))}
       <div className="catalog__more">

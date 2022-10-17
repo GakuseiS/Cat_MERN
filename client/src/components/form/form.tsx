@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { FormEventHandler, useState } from "react";
+import InputMask from "react-input-mask";
 import { Button } from "../index";
 import "./form.scss";
 
 export const Form = () => {
   const [status, setStatus] = useState(false);
 
-  const submitHandler = async (event: any) => {
+  const submitHandler: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
-    let object: { [key: string]: string } = {};
+    const formData = new FormData(event.currentTarget);
+    let object: { [key: string]: string | number } = {};
     formData.forEach((value, key) => {
-      if (typeof key === "string") object[key] = value as string;
+      if (typeof key === "string") {
+        let inputValue: string | number = value as string;
+        if (key === "age" || key === "weight") inputValue = +inputValue;
+        object[key] = inputValue;
+      }
     });
     let json = JSON.stringify(object);
     try {
@@ -25,7 +29,7 @@ export const Form = () => {
       if (status === 200) {
         window.scrollTo(0, 0);
         setStatus(true);
-        event.target.reset();
+        event.currentTarget.reset();
       }
     } catch (err) {
       console.error(err);
@@ -109,11 +113,12 @@ export const Form = () => {
             <label className="form__label" htmlFor="tel">
               Телефон:*
             </label>
-            <input
+            <InputMask
+              mask={"+7 (999) 999-99-99"}
               className="form__input-text form__input-text-tel"
               id="tel"
               type="tel"
-              placeholder="8 (800) 900-60-90"
+              placeholder="+7 (800) 900-60-90"
               name="tel"
               required
             />

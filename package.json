@@ -7,7 +7,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "concurrently \"npm run server\" \"npm run start --prefix client\"",
     "server": "ts-node-esm app.ts",
-    "server:dev": "nodemon app.ts",
+    "server:dev": "nodemon app.ts --ignore client",
     "client": "npm start --prefix client",
     "install-client": "npm install --prefix client",
     "build": "npm run build --prefix client",

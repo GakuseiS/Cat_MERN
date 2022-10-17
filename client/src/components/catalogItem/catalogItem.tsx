@@ -20,7 +20,7 @@ export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemP
   const getId = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
-      const { status, body } = await fetch("/api/card", {
+      const res = await fetch("/api/card", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemP
         },
         body: JSON.stringify({ id }),
       });
-      if (status === 200) errorMessage((body as any).message);
+      if (res.status === 200) errorMessage((await res.json()).message);
     } catch (err) {
       console.error("Ошибка заказа");
     }

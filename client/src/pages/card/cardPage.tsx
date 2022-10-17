@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Button, Loader } from "../../components";
 import "./cardPage.scss";
 
 type TCard = {
+  id: number;
   allPrice: number;
-  items: {
-    _id: string;
+  items?: {
+    id: string;
     title: string;
     size: string;
     taste: string;
@@ -20,19 +21,18 @@ export const CardPage = () => {
   let history = useNavigate();
   const { token } = useContext(AuthContext);
   const [card, setCard] = useState<TCard | null>(null);
-  const [loading, setLoading] = useState(true);
-  const mountedRef = useRef(true);
+  const [loading, setLoading] = useState(false);
 
-  const getCard = async () => {
+  const fetchBasket = async () => {
+    setLoading(true);
     try {
-      const { body, status } = await fetch("/api/card", {
+      const res = await fetch("/api/card", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (status === 200) {
-        if (!mountedRef.current) return null;
-        setCard((body as any).basket);
+      if (res.status === 200) {
+        setCard(await res.json());
       }
     } catch (err) {
       console.error("Ошибка получения корзины");
@@ -41,51 +41,53 @@ export const CardPage = () => {
     }
   };
 
-  const clearCard = async (evt: any) => {
+  const clearCard = async (evt: FormEvent) => {
     evt.preventDefault();
+    setLoading(true);
     try {
-      const { status } = await fetch("/api/card", {
+      await fetch("/api/card", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (status === 200) {
-        setLoading(true);
-      }
     } catch (err) {
       console.error("Ошибка очищения корзины");
+    } finally {
+      setLoading(false);
+      fetchBasket();
     }
   };
 
   const deleteItem = async (evt: any) => {
+    setLoading(true);
     try {
-      const { status } = await fetch("/api/card/" + evt.target.dataset.id, {
+      await fetch("/api/card/" + evt.target.dataset.id, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (status === 200) {
-        setLoading(true);
-      }
     } catch (err) {
       console.error("Ошибка удаления из корзины");
+    } finally {
+      setLoading(false);
+      fetchBasket();
     }
   };
 
   const postOrder = async (evt: any) => {
     evt.preventDefault();
     try {
-      const { status } = await fetch("/api/orders", {
+      const res = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(card),
+        body: JSON.stringify({ id: card?.id }),
       });
-      if (status === 200) {
+      if (res.status === 200) {
         history("/orders");
       }
     } catch (err) {
@@ -94,10 +96,7 @@ export const CardPage = () => {
   };
 
   useEffect(() => {
-    getCard();
-    return () => {
-      mountedRef.current = false;
-    };
+    fetchBasket();
   }, []);
 
   if (loading) {
@@ -111,13 +110,13 @@ export const CardPage = () => {
   return (
     <div className="cardPage">
       <h1 className="cardPage__title">Корзина</h1>
-      {!loading && card?.allPrice !== 0 && (
+      {card?.allPrice ? (
         <div>
           <ol className="cardPage__list">
-            {card?.items.map((item) => (
-              <li key={item._id} className="cardPage__item">
+            {card?.items?.map((item) => (
+              <li key={item.id} className="cardPage__item">
                 {item.title} {item.size} {item.taste} - {item.price} руб. - {item.count} шт.
-                <button title="Удалить из корзины" data-id={item._id} onClick={deleteItem} className="cardPage__delete">
+                <button title="Удалить из корзины" data-id={item.id} onClick={deleteItem} className="cardPage__delete">
                   X
                 </button>
               </li>
@@ -131,8 +130,8 @@ export const CardPage = () => {
             <Button>Очистить корзину</Button>
           </form>
         </div>
-      )}
-      {!loading && card?.allPrice === 0 ? <p>Ваша корзина пуста</p> : null}
+      ) : null}
+      {card?.allPrice === 0 ? <p>Ваша корзина пуста</p> : null}
     </div>
   );
 };
