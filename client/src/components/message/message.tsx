@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import ErrorContext from "../../context/ErrorContext";
 import "./message.scss";
 
-export const Message = (props: { children: React.ReactNode }) => {
-  return <div className="message">{props.children}</div>;
+export const Message = () => {
+  const { error } = useContext(ErrorContext);
+
+  return <>{error ? <div className="message">{error}</div> : null}</>;
 };

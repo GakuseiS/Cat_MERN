@@ -28,7 +28,7 @@ export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemP
         },
         body: JSON.stringify({ id }),
       });
-      if (res.status === 200) errorMessage((await res.json()).message);
+      errorMessage((await res.json()).message);
     } catch (err) {
       console.error("Ошибка заказа");
     }
