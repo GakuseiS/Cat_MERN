@@ -1,16 +1,17 @@
-import React, { useContext, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from "react";
 import { Modal } from "../index";
 import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import classNames from "classnames";
 import "./header.scss";
 import logoDesktop from "../../assets/images/logo-desktop.png";
 import logoTablet from "../../assets/images/logo-tablet.png";
-import { AuthContext } from "../../context/AuthContext";
+import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
+import { logout } from "../../store/loginSlice";
 
 export const Header = () => {
   const location = useLocation();
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.login);
   const [openModal, setOpenModal] = useState(false);
   const history = useNavigate();
   const path = location.pathname;
@@ -43,28 +44,14 @@ export const Header = () => {
               Каталог продукции
             </NavLink>
           </li>
-          {!isAuthenticated && (
+          {!token && (
             <li className="header__item">
               <NavLink className={({ isActive }) => (isActive ? `${links} ${active}` : links)} to="/form">
                 Подбор программы
               </NavLink>
             </li>
           )}
-          {isAuthenticated && (
-            <li className="header__item">
-              <NavLink className={({ isActive }) => (isActive ? `${links} ${active}` : links)} to="/card">
-                Корзина
-              </NavLink>
-            </li>
-          )}
-          {isAuthenticated && (
-            <li className="header__item">
-              <NavLink className={({ isActive }) => (isActive ? `${links} ${active}` : links)} to="/orders">
-                Заказы
-              </NavLink>
-            </li>
-          )}
-          {!isAuthenticated && (
+          {!token && (
             <li className="header__item">
               <a
                 className={links}
@@ -78,14 +65,29 @@ export const Header = () => {
               </a>
             </li>
           )}
-          {isAuthenticated && (
+          {token && (
+            <li className="header__item">
+              <NavLink className={({ isActive }) => (isActive ? `${links} ${active}` : links)} to="/card">
+                Корзина
+              </NavLink>
+            </li>
+          )}
+          {token && (
+            <li className="header__item">
+              <NavLink className={({ isActive }) => (isActive ? `${links} ${active}` : links)} to="/orders">
+                Заказы
+              </NavLink>
+            </li>
+          )}
+          {token && (
             <li className="header__item">
               <a
                 className={links}
                 href="/"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  logout();
+                  dispatch(logout());
+                  // logout();
                   history("/");
                 }}
               >
@@ -95,7 +97,7 @@ export const Header = () => {
           )}
         </ul>
       </nav>
-      {openModal ? ReactDOM.createPortal(<Modal setCross={setOpenModal} />, document.body) : null}
+      {openModal ? <Modal setCross={setOpenModal} /> : null}
     </>
   );
 };

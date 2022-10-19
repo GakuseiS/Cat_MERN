@@ -1,7 +1,8 @@
 import { prismaClient } from "../app";
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
 import { auth } from "../middlewares/auth";
 import { TypedRequest } from "../types";
+import { check } from "express-validator";
 const router = Router();
 
 router.get("/", auth, async (req: TypedRequest<null>, res: Response) => {
@@ -26,8 +27,7 @@ router.get("/", auth, async (req: TypedRequest<null>, res: Response) => {
   }
 });
 
-//Нужно добавить item в корзину, необходим расчет колличества и общей цены
-router.post("/", auth, async (req: TypedRequest<{ id: string }>, res: Response) => {
+router.post("/", [auth, check("id").exists()], async (req: TypedRequest<{ id: string }>, res: Response) => {
   try {
     if (req.user) {
       const productId = req.body.id;
@@ -81,7 +81,7 @@ router.post("/", auth, async (req: TypedRequest<{ id: string }>, res: Response) 
     }
   } catch (e) {
     console.log(e);
-    res.status(500).json({ message: "Error" });
+    res.status(500).json({ message: "Ошибка добавления в корзину" });
   }
 });
 
@@ -98,39 +98,43 @@ router.delete("/", auth, async (req: TypedRequest<null>, res: Response) => {
   }
 });
 
-router.delete("/:id", auth, async (req: any, res) => {
+router.delete("/:id", [auth, check("id").exists()], async (req: TypedRequest<{ id: number }>, res: Response) => {
   try {
-    let basket = await prismaClient.basket.findFirst({ where: { userId: req.user.id }, include: { items: true } });
+    if (req.user) {
+      let basket = await prismaClient.basket.findFirst({ where: { userId: req.user.id }, include: { items: true } });
 
-    if (basket) {
-      const basketItemId = +req.params.id;
-      if (basket.allPrice === 0) {
-        await prismaClient.basket.delete({ where: { userId: +req.user.id } });
-      } else {
-        const basketItem = await prismaClient.cardItem.findFirst({ where: { id: basketItemId } });
-        if (basketItem) {
-          if (basketItem.count > 1) {
-            await prismaClient.basket.update({
-              where: { userId: req.user.id },
-              data: {
-                allPrice: basket.allPrice - basketItem.price,
-                items: { update: { where: { id: basketItemId }, data: { count: basketItem.count - 1 } } },
-              },
-            });
-          } else {
-            await prismaClient.basket.update({
-              where: { userId: req.user.id },
-              data: {
-                allPrice: basket.allPrice - basketItem.price,
-                items: { delete: { id: basketItemId } },
-              },
-            });
+      if (basket) {
+        const basketItemId = +req.params.id;
+        if (basket.allPrice === 0) {
+          await prismaClient.basket.delete({ where: { userId: +req.user.id } });
+        } else {
+          const basketItem = await prismaClient.cardItem.findFirst({ where: { id: basketItemId } });
+          if (basketItem) {
+            if (basketItem.count > 1) {
+              await prismaClient.basket.update({
+                where: { userId: req.user.id },
+                data: {
+                  allPrice: basket.allPrice - basketItem.price,
+                  items: { update: { where: { id: basketItemId }, data: { count: basketItem.count - 1 } } },
+                },
+              });
+            } else {
+              await prismaClient.basket.update({
+                where: { userId: req.user.id },
+                data: {
+                  allPrice: basket.allPrice - basketItem.price,
+                  items: { delete: { id: basketItemId } },
+                },
+              });
+            }
           }
         }
       }
-    }
 
-    res.status(200).json({ message: "Продукт успешно удален" });
+      res.status(200).json({ message: "Продукт успешно удален" });
+    } else {
+      res.end();
+    }
   } catch (e) {
     console.log(e);
     res.status(500).json({ message: "Ошибка удаления продукта" });

@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import ErrorContext from "../../context/ErrorContext";
-import { Button } from "../index";
+import React, { useState } from "react";
+import { Button, Input } from "../index";
 import { useNavigate } from "react-router-dom";
+import ReactDOM from "react-dom";
 import "./modal.scss";
+import { setMessage } from "../../store/errorSlice";
+import { useAppDispatch } from "../../hooks/store.hook";
+import { login } from "../../store/loginSlice";
 
 interface ModalProps {
   setCross: Function;
@@ -11,8 +13,7 @@ interface ModalProps {
 
 export const Modal = ({ setCross }: ModalProps) => {
   const [switcher, setSwitcher] = useState(true);
-  const { login } = useContext(AuthContext);
-  const { errorMessage } = useContext(ErrorContext);
+  const dispatch = useAppDispatch();
   const history = useNavigate();
 
   const getRegister = async (evt: any) => {
@@ -31,7 +32,7 @@ export const Modal = ({ setCross }: ModalProps) => {
         body: JSON.stringify(obj),
       });
       if (res.status === 200) {
-        errorMessage((await res.json()).message);
+        dispatch(setMessage((await res.json()).message));
       }
     } catch (err) {
       console.error("Ошибка регистрации");
@@ -55,18 +56,20 @@ export const Modal = ({ setCross }: ModalProps) => {
       });
       const data = await res.json();
       if (res.status === 200) {
-        login(data.token, data.userId);
+        console.log(data);
+        dispatch(login({ token: data.token, userId: data.userId }));
+        // login(data.token, data.userId);
         setCross(false);
         history("/");
       } else {
-        errorMessage(data.message);
+        dispatch(setMessage(data.message));
       }
     } catch (err) {
       console.error("Ошибка авторизации");
     }
   };
 
-  return (
+  return ReactDOM.createPortal(
     <div className="modal">
       <h2 className="modal__title">Личный кабинет</h2>
       <div className="modal__switches">
@@ -94,15 +97,8 @@ export const Modal = ({ setCross }: ModalProps) => {
       {switcher && (
         <form className="modal__login" onSubmit={getLogin}>
           <p className="modal__text">Введите свой логин и пароль, чтобы войти</p>
-          <input className="modal__input-text" name="email" placeholder="Логин" type="email" minLength={3} required />
-          <input
-            className="modal__input-text"
-            name="password"
-            placeholder="Пароль"
-            type="password"
-            minLength={6}
-            required
-          />
+          <Input name="email" placeholder="Логин" type="email" minLength={3} required />
+          <Input name="password" placeholder="Пароль" type="password" minLength={6} required />
           <div className="modal__wrapper">
             <Button>Войти в личный кабинет</Button>
           </div>
@@ -111,16 +107,9 @@ export const Modal = ({ setCross }: ModalProps) => {
       {!switcher && (
         <form className="modal__register" autoComplete="off" onSubmit={getRegister}>
           <p className="modal__text">Введите свои данные, чтобы зарегистрироваться</p>
-          <input className="modal__input-text" name="name" placeholder="Имя" type="text" minLength={3} required />
-          <input className="modal__input-text" name="email" placeholder="Логин" type="email" required />
-          <input
-            className="modal__input-text"
-            name="password"
-            placeholder="Пароль"
-            type="password"
-            minLength={6}
-            required
-          />
+          <Input name="name" placeholder="Имя" type="text" minLength={3} required />
+          <Input name="email" placeholder="Логин" type="email" minLength={3} required />
+          <Input name="password" placeholder="Пароль" type="password" minLength={6} required />
           <div className="modal__wrapper">
             <Button>Зарегистрироваться</Button>
           </div>
@@ -129,6 +118,7 @@ export const Modal = ({ setCross }: ModalProps) => {
       <span className="modal__cross" onClick={() => setCross(false)}>
         ✕
       </span>
-    </div>
+    </div>,
+    document.body
   );
 };

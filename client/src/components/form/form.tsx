@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useState } from "react";
 import InputMask from "react-input-mask";
-import { Button } from "../index";
+import { Button, Input } from "../index";
 import "./form.scss";
 
 export const Form = () => {
@@ -46,22 +46,14 @@ export const Form = () => {
             <label className="form__label" htmlFor="name">
               Имя:*
             </label>
-            <input
-              className="form__input-text form__input-text--name"
-              id="name"
-              type="text"
-              placeholder="БАРСИК"
-              name="name"
-              required
-            />
+            <Input id="name" className="form__input-text--name" type="text" placeholder="БАРСИК" name="name" required />
             <label className="form__label" htmlFor="weight">
               Вес (кг):*
             </label>
-            <input
-              className="form__input-text form__input-text--weight"
+            <Input
               id="weight"
+              className="form__input-text--weight"
               type="number"
-              min="0"
               placeholder="7"
               name="weight"
               required
@@ -69,14 +61,7 @@ export const Form = () => {
             <label className="form__label" htmlFor="age">
               Возраст (лет):
             </label>
-            <input
-              className="form__input-text form__input-text--age"
-              id="age"
-              type="number"
-              min="0"
-              placeholder="7"
-              name="age"
-            />
+            <Input id="age" className="form__input-text--age" type="number" placeholder="7" name="age" required />
           </div>
           <div className="form__wrapper-type">
             <input className="form__input-radio" name="type" id="slim" type="radio" value="slim" defaultChecked />
@@ -99,22 +84,15 @@ export const Form = () => {
         <div className="form__contacts">
           <h2 className="form__fancy-title">Контактные данные (владельца кота)</h2>
           <div className="form__wrapper-contacts">
-            <label className="form__label" htmlFor="mail">
+            <label className="form__label" htmlFor="email">
               E-mail:*
             </label>
-            <input
-              className="form__input-text form__input-text-mail"
-              id="mail"
-              type="email"
-              placeholder="example@gmail.com"
-              name="email"
-              required
-            />
+            <Input className="form__input-text--mail" id="email" type="email" placeholder="example@mail.ru" required />
             <label className="form__label" htmlFor="tel">
               Телефон:*
             </label>
             <InputMask
-              mask={"+7 (999) 999-99-99"}
+              mask="+7 (999) 999-99-99"
               className="form__input-text form__input-text-tel"
               id="tel"
               type="tel"

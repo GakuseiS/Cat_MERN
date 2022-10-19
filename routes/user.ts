@@ -43,7 +43,7 @@ router.post(
       await prismaClient.user.create({ data: { name, email, password: hashPassword } });
       res.json({ message: "Пользователь успешно зарегистрирован" });
     } catch (e) {
-      res.status(400).json({ message: "Что-то пошло не так" });
+      res.status(400).json({ message: "Ошибка регистрации" });
     }
   }
 );
@@ -76,7 +76,7 @@ router.post(
 
       res.json({ token, userId: candidate.id });
     } catch (e) {
-      res.status(400).json({ message: "Что-то пошло не так" });
+      res.status(400).json({ message: "Ошибка логина" });
     }
   }
 );

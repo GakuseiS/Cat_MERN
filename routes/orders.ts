@@ -2,13 +2,14 @@ import { Response, Router } from "express";
 import { auth } from "../middlewares/auth";
 import { prismaClient } from "../app";
 import { TypedRequest } from "../types";
+import { check } from "express-validator";
 const router = Router();
 
 type OrderBody = {
   id: number;
 };
 
-router.post("/", auth, async (req: TypedRequest<OrderBody>, res: Response) => {
+router.post("/", [auth, check("id").exists()], async (req: TypedRequest<OrderBody>, res: Response) => {
   try {
     const basket = await prismaClient.basket.findFirst({ where: { id: req.body.id }, include: { items: true } });
     if (req.user && basket) {
@@ -23,7 +24,7 @@ router.post("/", auth, async (req: TypedRequest<OrderBody>, res: Response) => {
         data: { allPrice: newOrder.allPrice, userId: basket.userId, items: { create: newOrder.items } },
       });
       await prismaClient.basket.delete({ where: { userId: req.user.id } });
-      res.json({ message: "Ok" });
+      res.json({ message: "Заказ успешно сформирован" });
     } else {
       res.end();
     }

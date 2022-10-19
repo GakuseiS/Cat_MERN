@@ -21,8 +21,8 @@ type requestBody = {
 router.post(
   "/",
   [
-    check("name").exists(),
-    check("weight").exists(),
+    check("name").exists().isString(),
+    check("weight").exists().isNumeric(),
     check("email").isEmail(),
     check("tel").isLength({ min: 18, max: 18 }),
   ],
@@ -39,7 +39,7 @@ router.post(
       res.json({ message: "Данные успешно отправлены на сервер" });
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: "Что-то пошло не так" });
+      res.status(400).json({ message: "Ошибка отправки формы" });
     }
   }
 );

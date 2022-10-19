@@ -1,8 +1,8 @@
-import React, { FormEvent, useContext } from "react";
+import React, { FormEvent } from "react";
 import { Button } from "../index";
-import { AuthContext } from "../../context/AuthContext";
 import "./catalogItem.scss";
-import ErrorContext from "../../context/ErrorContext";
+import { setMessage } from "../../store/errorSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
 
 interface CatalogItemProps {
   id: string;
@@ -14,8 +14,8 @@ interface CatalogItemProps {
 }
 
 export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemProps) => {
-  const { token } = useContext(AuthContext);
-  const { errorMessage } = useContext(ErrorContext);
+  const { token } = useAppSelector((state) => state.login);
+  const dispatch = useAppDispatch();
 
   const getId = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -28,7 +28,7 @@ export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemP
         },
         body: JSON.stringify({ id }),
       });
-      errorMessage((await res.json()).message);
+      dispatch(setMessage((await res.json()).message));
     } catch (err) {
       console.error("Ошибка заказа");
     }

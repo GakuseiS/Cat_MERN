@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import ErrorContext from "../../context/ErrorContext";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../hooks/store.hook";
+import { setMessage } from "../../store/errorSlice";
 import { Button } from "../index";
 import "./supplement.scss";
 
@@ -12,9 +13,9 @@ type TAddon = {
 };
 
 export const Supplement = () => {
-  const { token } = useContext(AuthContext);
+  const { token } = useAppSelector((state) => state.login);
   const [addons, setAddons] = useState<TAddon[] | null>(null);
-  const { errorMessage } = useContext(ErrorContext);
+  const dispatch = useDispatch();
 
   const sendSupplementToCard: React.FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
@@ -29,7 +30,7 @@ export const Supplement = () => {
       body: JSON.stringify({ id }),
     })
       .then((res) => res.json())
-      .then((data) => errorMessage(data.message));
+      .then((data) => dispatch(setMessage(data.message)));
   };
 
   const getAddons = async (signal: AbortSignal) => {

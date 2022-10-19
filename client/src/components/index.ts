@@ -1,5 +1,6 @@
 export { Appeal } from "./appeal";
-export { Button } from "./button";
+export { Button } from "./UI";
+export { Input } from "./UI";
 export { Catalog } from "./catalog";
 export { CatalogItem } from "./catalogItem";
 export { Example } from "./example";

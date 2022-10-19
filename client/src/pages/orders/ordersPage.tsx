@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useEffect, useState } from "react";
 import { Loader } from "../../components";
+import { useAppSelector } from "../../hooks/store.hook";
 import "./ordersPage.scss";
 
 type TOrder = {
@@ -20,7 +20,7 @@ type TOrder = {
 export const OrdersPage = () => {
   const [orders, setOrders] = useState<TOrder[] | null>(null);
   const [loading, setLoading] = useState(true);
-  const { token } = useContext(AuthContext);
+  const { token } = useAppSelector((state) => state.login);
 
   const setDate = (date: string) =>
     new Intl.DateTimeFormat("ru-RU", {

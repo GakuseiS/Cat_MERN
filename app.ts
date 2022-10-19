@@ -1,4 +1,4 @@
-import express, { Request, Response, Application } from "express";
+import express, { Response, Application } from "express";
 import { PrismaClient } from "@prisma/client";
 import path from "path";
 import cors from "cors";
@@ -17,13 +17,12 @@ app.use("/api/card", require("./routes/basket"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/api/addons", require("./routes/addons"));
 app.use("/api/users", require("./routes/user"));
-app.get("*", function (req: Request, res: Response) {
+app.get("*", function (req, res: Response) {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
 const start = async () => {
   try {
-    await prismaClient.$connect();
     app.listen(PORT, () => {
       console.log(`Server has been started on port ${PORT}`);
     });

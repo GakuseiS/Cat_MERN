@@ -7,7 +7,7 @@ router.get("/", async (req, res: Response) => {
     const cards = await prismaClient.product.findMany({ where: { type: "main" } });
     res.json(cards);
   } catch (e) {
-    res.status(400).json({ message: `Что-то пошло не так` });
+    res.status(400).json({ message: "Ошибка получения продуктов" });
   }
 });
 

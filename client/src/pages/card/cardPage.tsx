@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState, FormEvent } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import { Button, Loader } from "../../components";
+import { useAppSelector } from "../../hooks/store.hook";
 import "./cardPage.scss";
 
 type TCard = {
@@ -19,7 +19,7 @@ type TCard = {
 
 export const CardPage = () => {
   let history = useNavigate();
-  const { token } = useContext(AuthContext);
+  const { token } = useAppSelector((state) => state.login);
   const [card, setCard] = useState<TCard | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -117,7 +117,7 @@ export const CardPage = () => {
               <li key={item.id} className="cardPage__item">
                 {item.title} {item.size} {item.taste} - {item.price} руб. - {item.count} шт.
                 <button title="Удалить из корзины" data-id={item.id} onClick={deleteItem} className="cardPage__delete">
-                  X
+                  ✕
                 </button>
               </li>
             ))}
