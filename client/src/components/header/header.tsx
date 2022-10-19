@@ -87,7 +87,6 @@ export const Header = () => {
                 onClick={(evt) => {
                   evt.preventDefault();
                   dispatch(logout());
-                  // logout();
                   history("/");
                 }}
               >

@@ -6,10 +6,7 @@ import "./message.scss";
 
 export const Message = () => {
   const error = useAppSelector((state) => state.error.message);
-  const data = useAppSelector((state) => state.login);
   const dispatch = useAppDispatch();
-
-  console.log(data);
 
   useEffect(() => {
     if (error) {

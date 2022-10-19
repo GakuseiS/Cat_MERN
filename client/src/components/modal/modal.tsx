@@ -58,7 +58,6 @@ export const Modal = ({ setCross }: ModalProps) => {
       if (res.status === 200) {
         console.log(data);
         dispatch(login({ token: data.token, userId: data.userId }));
-        // login(data.token, data.userId);
         setCross(false);
         history("/");
       } else {
