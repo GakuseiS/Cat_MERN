@@ -2,19 +2,16 @@ import React from "react";
 import classNames from "classnames";
 import "./button.scss";
 
-export const Button = ({
-  size = "medium",
-  color = "green",
-  page = "",
-  type,
-  children,
-}: {
+type ButtonProps = {
   size?: string;
   color?: string;
   page?: string;
   children?: React.ReactNode;
   type?: "submit" | "button";
-}) => {
+  disabled?: boolean;
+};
+
+export const Button = ({ size = "medium", color = "green", page = "", type, disabled, children }: ButtonProps) => {
   const classes = classNames({
     button: true,
     [`button-${size}`]: size,
@@ -22,7 +19,7 @@ export const Button = ({
     [`button-${page}`]: page,
   });
   return (
-    <button type={type} className={classes}>
+    <button type={type} className={classes} disabled={disabled}>
       {children}
     </button>
   );

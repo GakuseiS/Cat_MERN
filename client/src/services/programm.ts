@@ -4,14 +4,14 @@ type ProgrammBody = {
   name: string;
   weight: number;
   age: number;
-  type: string;
+  type?: string;
   email: string;
   tel: string;
-  comment: string;
-  sugar: string;
-  water: string;
-  milk: string;
-  vitamin: string;
+  comment?: string;
+  sugar?: string;
+  water?: string;
+  milk?: string;
+  vitamin?: string;
 };
 
 const extendedApi = serviceApi.injectEndpoints({

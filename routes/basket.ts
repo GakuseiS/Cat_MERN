@@ -5,7 +5,7 @@ import { TypedRequest } from "../types";
 import { check } from "express-validator";
 const router = Router();
 
-router.get("/", auth, async (req: TypedRequest<null>, res: Response) => {
+router.get("/", auth, async (req: TypedRequest<never>, res: Response) => {
   try {
     if (req.user) {
       let basket = await prismaClient.basket.findFirst({
@@ -85,7 +85,7 @@ router.post("/", [auth, check("id").exists()], async (req: TypedRequest<{ id: st
   }
 });
 
-router.delete("/", auth, async (req: TypedRequest<null>, res: Response) => {
+router.delete("/", auth, async (req: TypedRequest<never>, res: Response) => {
   try {
     if (req.user) {
       await prismaClient.basket.delete({ where: { userId: req.user.id }, include: { user: true } });

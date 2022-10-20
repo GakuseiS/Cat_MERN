@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, FocusEventHandler, useState } from "react";
 import "./input.scss";
 import classNames from "classnames";
 
@@ -11,31 +11,36 @@ type InputProps = {
   maxLength?: number;
   id?: string;
   className?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
+  error?: boolean;
 };
 
-export const Input = (props: InputProps) => {
+export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const [value, setValue] = useState("");
-
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    let value = e.target.value;
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
+    let value = evt.target.value;
     if (props.type === "number") {
-      value = value.replace(/\D/g, "");
+      value = value.replaceAll(/\D/g, "");
     }
     setValue(value);
+    props.onChange?.({ ...evt, target: { ...evt.target, value } });
   };
 
   return (
     <input
+      ref={ref}
+      onChange={onInputChange}
+      value={value}
+      onBlur={props.onBlur}
       id={props.id}
-      className={classNames("input", props.className)}
+      className={classNames("input", props.className, props.error && "error")}
       name={props.name}
       placeholder={props.placeholder}
       type={props.type === "number" ? "text" : props.type}
-      value={value}
-      onChange={onInputChange}
       minLength={props.minLength}
       maxLength={props.maxLength}
       required={props.required}
     />
   );
-};
+});

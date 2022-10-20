@@ -13,6 +13,7 @@ export const serviceApi = createApi({
       return headers;
     },
   }),
+
   tagTypes: ["BASKET"],
   endpoints: () => ({}),
 });

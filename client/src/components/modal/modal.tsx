@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useState } from "react";
+import React, { useState } from "react";
 import { Button, Input } from "../index";
 import { useNavigate } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -7,16 +7,34 @@ import { setMessage } from "../../store/errorSlice";
 import { useAppDispatch } from "../../hooks/store.hook";
 import { login } from "../../store/loginSlice";
 import { usePostLoginMutation, usePostRegisterMutation } from "../../services/login";
+import { FieldErrorsImpl, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface ModalProps {
   setCross: Function;
 }
 
-type ModalFields = {
-  name: HTMLInputElement;
-  email: HTMLInputElement;
-  password: HTMLInputElement;
+type RegisterValues = {
+  name: string;
+  email: string;
+  password: string;
 };
+
+type LoginValues = {
+  email: string;
+  password: string;
+};
+
+type FieldsValues = RegisterValues | LoginValues;
+
+const schema: yup.SchemaOf<FieldsValues> = yup
+  .object({
+    name: yup.string().min(3).optional(),
+    email: yup.string().email().required(),
+    password: yup.string().min(6).required(),
+  })
+  .required();
 
 export const Modal = ({ setCross }: ModalProps) => {
   const [switcher, setSwitcher] = useState(true);
@@ -24,33 +42,36 @@ export const Modal = ({ setCross }: ModalProps) => {
   const history = useNavigate();
   const [postLogin] = usePostLoginMutation();
   const [postRegister] = usePostRegisterMutation();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldsValues>({ mode: "onBlur", resolver: yupResolver(schema) });
 
-  const registerHandler: FormEventHandler<HTMLFormElement & ModalFields> = async (evt) => {
-    evt.preventDefault();
-    const { name, email, password } = evt.currentTarget;
+  const registerHandler = handleSubmit(async (data) => {
     try {
-      const data = await postRegister({ name: name.value, email: email.value, password: password.value }).unwrap();
-      dispatch(setMessage(data.message));
+      const res = await postRegister(data as RegisterValues).unwrap();
+      dispatch(setMessage(res.message));
       setSwitcher(true);
+      reset();
     } catch (err: any) {
       dispatch(setMessage(err.data?.message));
       console.error("Ошибка регистрации");
     }
-  };
+  });
 
-  const loginHandler: FormEventHandler<HTMLFormElement & Omit<ModalFields, "name">> = async (evt) => {
-    evt.preventDefault();
-    const { email, password } = evt.currentTarget;
+  const loginHandler = handleSubmit(async (data) => {
     try {
-      const data = await postLogin({ email: email.value, password: password.value }).unwrap();
-      dispatch(login(data));
+      const res = await postLogin(data).unwrap();
+      dispatch(login(res));
       setCross(false);
       history("/");
     } catch (err: any) {
       dispatch(setMessage(err.data?.message));
       console.error("Ошибка авторизации");
     }
-  };
+  });
 
   return ReactDOM.createPortal(
     <div className="modal">
@@ -80,8 +101,8 @@ export const Modal = ({ setCross }: ModalProps) => {
       {switcher && (
         <form className="modal__login" onSubmit={loginHandler}>
           <p className="modal__text">Введите свой логин и пароль, чтобы войти</p>
-          <Input name="email" placeholder="Логин" type="email" minLength={3} required />
-          <Input name="password" placeholder="Пароль" type="password" minLength={6} required />
+          <Input placeholder="Логин" type="email" {...register("email")} error={!!errors.email} />
+          <Input placeholder="Пароль" type="password" {...register("password")} error={!!errors.password} />
           <div className="modal__wrapper">
             <Button>Войти в личный кабинет</Button>
           </div>
@@ -90,9 +111,14 @@ export const Modal = ({ setCross }: ModalProps) => {
       {!switcher && (
         <form className="modal__register" autoComplete="off" onSubmit={registerHandler}>
           <p className="modal__text">Введите свои данные, чтобы зарегистрироваться</p>
-          <Input name="name" placeholder="Имя" type="text" minLength={3} required />
-          <Input name="email" placeholder="Логин" type="email" minLength={3} required />
-          <Input name="password" placeholder="Пароль" type="password" minLength={6} required />
+          <Input
+            placeholder="Имя"
+            type="text"
+            {...register("name")}
+            error={!!(errors as Partial<FieldErrorsImpl<RegisterValues>>).name}
+          />
+          <Input placeholder="Логин" type="email" {...register("email")} error={!!errors.email} />
+          <Input placeholder="Пароль" type="password" {...register("password")} error={!!errors.password} />
           <div className="modal__wrapper">
             <Button>Зарегистрироваться</Button>
           </div>

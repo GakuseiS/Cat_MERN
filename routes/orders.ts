@@ -34,7 +34,7 @@ router.post("/", [auth, check("id").exists()], async (req: TypedRequest<OrderBod
   }
 });
 
-router.get("/", auth, async (req: TypedRequest<null>, res: Response) => {
+router.get("/", auth, async (req: TypedRequest<never>, res: Response) => {
   try {
     if (req.user) {
       let orders =
