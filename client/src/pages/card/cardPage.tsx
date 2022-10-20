@@ -1,105 +1,58 @@
-import React, { useEffect, useState, FormEvent } from "react";
+import React, { FormEventHandler, MouseEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Loader } from "../../components";
-import { useAppSelector } from "../../hooks/store.hook";
+import { useAppDispatch } from "../../hooks/store.hook";
+import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "../../services/card";
+import { usePostOrderMutation } from "../../services/order";
+import { setMessage } from "../../store/errorSlice";
 import "./cardPage.scss";
-
-type TCard = {
-  id: number;
-  allPrice: number;
-  items?: {
-    id: string;
-    title: string;
-    size: string;
-    taste: string;
-    price: string;
-    count: string;
-  }[];
-};
 
 export const CardPage = () => {
   let history = useNavigate();
-  const { token } = useAppSelector((state) => state.login);
-  const [card, setCard] = useState<TCard | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { data: card, isLoading } = useGetBasketQuery();
+  const [clearCard] = useDeleteBasketMutation();
+  const [deleteItem] = useDeleteBasketItemMutation();
+  const [postOrder] = usePostOrderMutation();
+  const dispatch = useAppDispatch();
 
-  const fetchBasket = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/card", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.status === 200) {
-        setCard(await res.json());
-      }
-    } catch (err) {
-      console.error("Ошибка получения корзины");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const clearCard = async (evt: FormEvent) => {
+  const clearCardHandler: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
-    setLoading(true);
     try {
-      await fetch("/api/card", {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (err) {
+      const data = await clearCard().unwrap();
+      dispatch(setMessage(data.message));
+    } catch (err: any) {
+      dispatch(setMessage(err.data?.message));
       console.error("Ошибка очищения корзины");
-    } finally {
-      setLoading(false);
-      fetchBasket();
     }
   };
 
-  const deleteItem = async (evt: any) => {
-    setLoading(true);
-    try {
-      await fetch("/api/card/" + evt.target.dataset.id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (err) {
-      console.error("Ошибка удаления из корзины");
-    } finally {
-      setLoading(false);
-      fetchBasket();
-    }
-  };
-
-  const postOrder = async (evt: any) => {
-    evt.preventDefault();
-    try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id: card?.id }),
-      });
-      if (res.status === 200) {
-        history("/orders");
+  const deleteItemHandler: MouseEventHandler<HTMLButtonElement> = async (evt) => {
+    const id = (evt.target as HTMLButtonElement).dataset.id;
+    if (id) {
+      try {
+        const data = await deleteItem({ id }).unwrap();
+        dispatch(setMessage(data.message));
+      } catch (err: any) {
+        dispatch(setMessage(err.data?.message));
+        console.error("Ошибка удаления из корзины");
       }
-    } catch (err) {
-      console.error("Ошибка отправки заказа");
     }
   };
 
-  useEffect(() => {
-    fetchBasket();
-  }, []);
+  const postOrderHandler: FormEventHandler<HTMLFormElement> = async (evt) => {
+    evt.preventDefault();
+    if (card?.id) {
+      try {
+        await postOrder({ id: card.id });
+        history("/orders");
+      } catch (err: any) {
+        dispatch(setMessage(err.data?.message));
+        console.error("Ошибка отправки заказа");
+      }
+    }
+  };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="cardPage">
         <Loader />
@@ -116,17 +69,22 @@ export const CardPage = () => {
             {card?.items?.map((item) => (
               <li key={item.id} className="cardPage__item">
                 {item.title} {item.size} {item.taste} - {item.price} руб. - {item.count} шт.
-                <button title="Удалить из корзины" data-id={item.id} onClick={deleteItem} className="cardPage__delete">
+                <button
+                  title="Удалить из корзины"
+                  data-id={item.id}
+                  onClick={deleteItemHandler}
+                  className="cardPage__delete"
+                >
                   ✕
                 </button>
               </li>
             ))}
           </ol>
           {<p className="cardPage__price">Общая стоимость: {card?.allPrice} руб.</p>}
-          <form className="cardPage__order" method="POST" onSubmit={postOrder}>
+          <form className="cardPage__order" method="POST" onSubmit={postOrderHandler}>
             <Button>Сделать заказ</Button>
           </form>
-          <form className="cardPage__clear" method="POST" onSubmit={clearCard}>
+          <form className="cardPage__clear" method="POST" onSubmit={clearCardHandler}>
             <Button>Очистить корзину</Button>
           </form>
         </div>

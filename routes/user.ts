@@ -14,7 +14,6 @@ type RegisterBody = {
 };
 
 type LoginBody = {
-  name: string;
   email: string;
   password: string;
 };

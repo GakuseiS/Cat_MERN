@@ -1,39 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useGetMainProductsQuery } from "../../services/product";
 import { Button, CatalogItem, Loader } from "../index";
 import "./catalog.scss";
 
-type TCards = {
-  id: string;
-  title: string;
-  img: string;
-  size: string;
-  taste: string;
-  price: string;
-};
-
 export const Catalog = () => {
-  const [cards, setCards] = useState<TCards[] | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { data: cards, isLoading } = useGetMainProductsQuery();
 
-  const getCards = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("api/cards");
-      if (res.status === 200) {
-        setCards(await res.json());
-      }
-    } catch (err) {
-      console.error("Ошибка загрузки карточек");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getCards();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="catalog">
         <Loader />

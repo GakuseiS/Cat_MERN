@@ -1,8 +1,9 @@
-import React, { FormEvent } from "react";
+import React, { FormEventHandler } from "react";
 import { Button } from "../index";
 import "./catalogItem.scss";
 import { setMessage } from "../../store/errorSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
+import { useAppDispatch } from "../../hooks/store.hook";
+import { usePostProductMutation } from "../../services/product";
 
 interface CatalogItemProps {
   id: string;
@@ -10,29 +11,24 @@ interface CatalogItemProps {
   img: string;
   size: string;
   taste: string;
-  price: string;
+  price: number;
 }
 
 export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemProps) => {
-  const { token } = useAppSelector((state) => state.login);
   const dispatch = useAppDispatch();
+  const [postProduct] = usePostProductMutation();
 
-  const getId = async (evt: FormEvent<HTMLFormElement>) => {
+  const submitHandler: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     try {
-      const res = await fetch("/api/card", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id }),
-      });
-      dispatch(setMessage((await res.json()).message));
-    } catch (err) {
+      const data = await postProduct({ id }).unwrap();
+      dispatch(setMessage(data.message));
+    } catch (err: any) {
+      dispatch(setMessage(err.data?.message));
       console.error("Ошибка заказа");
     }
   };
+
   return (
     <div className="catalogItem">
       <div className="catalogItem__wrapper">
@@ -55,7 +51,7 @@ export const CatalogItem = ({ id, title, img, size, taste, price }: CatalogItemP
           Цена <span>{price} ₽</span>
         </li>
       </ul>
-      <form onSubmit={getId}>
+      <form onSubmit={submitHandler}>
         <Button size="small" page="catalog">
           Заказать
         </Button>
