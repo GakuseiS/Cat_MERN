@@ -5,29 +5,10 @@ import { usePostProgrammMutation } from "../../services/programm";
 import { setMessage } from "../../store/errorSlice";
 import { Button, Input } from "../index";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import "./form.scss";
 import { PhoneInput } from "../UI";
 import { FormValues } from "./form.types";
-
-const schema: yup.SchemaOf<FormValues> = yup
-  .object({
-    name: yup.string().min(3).required(),
-    weight: yup.number().min(0).required(),
-    age: yup.number().min(0).required(),
-    email: yup.string().email().required(),
-    tel: yup
-      .string()
-      .matches(/\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}/g)
-      .required(),
-    comment: yup.string(),
-    sugar: yup.boolean(),
-    water: yup.boolean(),
-    milk: yup.boolean(),
-    vitamin: yup.boolean(),
-    type: yup.string(),
-  })
-  .required();
+import { schema } from "./form.schema";
 
 export const Form = () => {
   const [postProgramm] = usePostProgrammMutation();
