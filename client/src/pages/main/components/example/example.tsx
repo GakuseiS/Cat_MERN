@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./example.scss";
-import catWas from "../../assets/images/Was.png";
-import catBecame from "../../assets/images/cat2.png";
+import catWas from "../../../../assets/images/Was.png";
+import catBecame from "../../../../assets/images/cat2.png";
 import Slider from "rc-slider";
+import "./example.scss";
 
 export const Example = () => {
   let [slider, setSlider] = useState(52);

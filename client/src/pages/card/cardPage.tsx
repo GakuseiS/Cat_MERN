@@ -1,10 +1,11 @@
 import React, { FormEventHandler, MouseEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Loader } from "../../components";
+import { Loader } from "../../components";
 import { useAppDispatch } from "../../hooks/store.hook";
-import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "../../services/card";
-import { usePostOrderMutation } from "../../services/order";
+import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "../../api/card";
+import { usePostOrderMutation } from "../../api/order";
 import { setMessage } from "../../store/errorSlice";
+import { Button } from "../../UI";
 import "./cardPage.scss";
 
 export const CardPage = () => {

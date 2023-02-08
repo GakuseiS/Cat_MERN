@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { serviceApi } from "../services/service";
+import { serviceApi } from "../api/service";
 import errorSlice from "./errorSlice";
 import loginSlice from "./loginSlice";
 

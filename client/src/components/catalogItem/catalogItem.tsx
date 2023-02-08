@@ -1,9 +1,9 @@
 import React, { FormEventHandler } from "react";
-import { Button } from "../index";
-import "./catalogItem.scss";
+import { Button } from "../../UI";
 import { setMessage } from "../../store/errorSlice";
 import { useAppDispatch } from "../../hooks/store.hook";
-import { usePostProductMutation } from "../../services/product";
+import { usePostProductMutation } from "../../api/product";
+import "./catalogItem.scss";
 
 interface CatalogItemProps {
   id: string;

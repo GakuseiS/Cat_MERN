@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../index";
+import { Button } from "../../../../UI";
+import can from "../../../../assets/images/index-can.png";
+import { useAppSelector } from "../../../../hooks/store.hook";
 import "./appeal.scss";
-import can from "../../assets/images/index-can.png";
-import { useAppSelector } from "../../hooks/store.hook";
 
 export const Appeal = () => {
   const { token } = useAppSelector((state) => state.login);

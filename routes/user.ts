@@ -26,6 +26,7 @@ router.post(
     check("password").isLength({ min: 6 }).exists(),
   ],
   async (req: TypedRequest<RegisterBody>, res: Response) => {
+    console.log("register");
     try {
       const errors = validationResult(req);
 

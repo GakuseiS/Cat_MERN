@@ -1,6 +1,7 @@
 import React from "react";
-import { useGetMainProductsQuery } from "../../services/product";
-import { Button, CatalogItem, Loader } from "../index";
+import { CatalogItem, Loader } from "../../../../components";
+import { useGetMainProductsQuery } from "../../../../api/product";
+import { Button } from "../../../../UI";
 import "./catalog.scss";
 
 export const Catalog = () => {

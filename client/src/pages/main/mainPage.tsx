@@ -1,5 +1,5 @@
 import React from "react";
-import { Appeal, Example, Features, How } from "../../components";
+import { Appeal, Example, Features, How } from "./components";
 
 export const MainPage = () => {
   return (

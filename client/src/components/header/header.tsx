@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Modal } from "../index";
 import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import classNames from "classnames";
-import "./header.scss";
+// import logoDesktop from "../../assets/images/logo-desktop.png";
 import logoDesktop from "../../assets/images/logo-desktop.png";
+
 import logoTablet from "../../assets/images/logo-tablet.png";
 import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
 import { logout } from "../../store/loginSlice";
+import "./header.scss";
 
 export const Header = () => {
   const location = useLocation();

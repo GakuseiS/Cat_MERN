@@ -4,7 +4,7 @@ import path from "path";
 import cors from "cors";
 
 export const prismaClient = new PrismaClient();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5732;
 const app: Application = express();
 
 app.use(cors());

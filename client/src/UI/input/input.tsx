@@ -21,10 +21,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref)
   const onInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
     let value = evt.target.value;
     if (props.type === "number") {
-      value = value.replaceAll(/\D/g, "");
+      value = value.replace(/\D/g, "");
     }
     setValue(value);
-    props.onChange?.({ ...evt, target: { ...evt.target, value } });
+    props.onChange?.({ ...evt, target: Object.assign(evt.target, { value }) });
   };
 
   return (

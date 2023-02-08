@@ -1,20 +1,20 @@
 import React from "react";
 import { Loader } from "../../components";
-import { useGetOrdersQuery } from "../../services/order";
+import { useGetOrdersQuery } from "../../api/order";
 import "./ordersPage.scss";
+
+const setDate = (date: string) =>
+  new Intl.DateTimeFormat("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(new Date(date));
 
 export const OrdersPage = () => {
   const { data: orders, isLoading } = useGetOrdersQuery();
-
-  const setDate = (date: string) =>
-    new Intl.DateTimeFormat("ru-RU", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }).format(new Date(date));
 
   if (isLoading) {
     return (

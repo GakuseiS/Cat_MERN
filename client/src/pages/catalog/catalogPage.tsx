@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
+import { Catalog, Supplement } from "./components";
 import "./catalogPage.scss";
-import { Catalog, Supplement } from "../../components";
 
 export const CatalogPage = () => {
   useEffect(() => {
