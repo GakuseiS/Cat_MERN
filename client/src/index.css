@@ -3,3 +3,24 @@
 *::before {
     font-family: 'Oswald', sans-serif;
 }
+
+:root {
+    --white      : #f2f2f2;
+    --whiteSmoke : #ebebeb;
+    --whiteSmoke2: #dcdcdc;
+    --lightGray  : #e6e6e6;
+    --lightGray2 : #e7e7e7;
+    --gray       : #cfcfcf;
+    --gray2      : #bebebe;
+    --gray3      : #cdcdcd;
+    --gainsboro  : #cecece;
+    --silver     : #CBCBCB;
+    --silver2    : #bcbcbc;
+    --slateGray  : #989898;
+    --pureGray   : gray;
+    --darkGray   : #444444;
+    --green      : #5eaa2f;
+    --limeGreen  : #68b738;
+    --red        : red;
+    --crimson    : #C8102E;
+}

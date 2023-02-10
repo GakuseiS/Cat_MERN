@@ -1,16 +1,25 @@
 .modal {
     position        : fixed;
-    left            : calc(100% / 2 - 230px);
-    top             : 150px;
-    z-index         : 10;
+    top             : 0;
+    bottom          : 0;
+    left            : 0;
+    right           : 0;
+    background-color: rgba(0, 0, 0, 0.15);
 
-    width           : 560px;
-    padding         : 30px 50px 50px;
+    &__box {
+        position        : absolute;
+        left            : calc(50% - 270px);
+        top             : 150px;
+        z-index         : 10;
 
-    background-color: white;
-    box-shadow      : 4px 4px 30px 7px rgba(0, 0, 0, 0.1);
+        width           : 560px;
+        padding         : 30px 50px 50px;
 
-    box-sizing      : border-box;
+        background-color: white;
+        box-shadow      : 4px 4px 30px 7px rgba(0, 0, 0, 0.1);
+
+        box-sizing      : border-box;
+    }
 
     &__title {
         margin    : 0 0 10px;

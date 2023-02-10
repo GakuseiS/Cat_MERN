@@ -22,7 +22,7 @@
 
         padding         : 70px 110px 40px;
 
-        background-color: #f2f2f2;
+        background-color: var(--white);
         @media screen and (max-width: 768px) {
             flex-wrap       : wrap;
             padding         : 50px 0 0;
@@ -47,7 +47,7 @@
             margin-top      : 0;
             padding         : 0 95px;
 
-            background-color: #f2f2f2;
+            background-color: var(--white);
         }
     }
 
@@ -155,7 +155,7 @@
         height          : 6px;
         width           : 420px;
 
-        background-color: #dcdcdc;
+        background-color: var(--whiteSmoke2);
         border-radius   : 5px;
     }
 
@@ -167,7 +167,7 @@
         width              : 34px;
 
         border-radius      : 50%;
-        border             : 1px solid #cecece;
+        border             : 1px solid var(--gainsboro);
         box-shadow         : 4px 4px 27px -7px rgba(0, 0, 0, 0.2);
         background-image   : url("../../../../assets/images/slider-control.png");
         background-repeat  : no-repeat;
@@ -182,7 +182,7 @@
         }
 
         &:active {
-            border: 2px solid #68b738;
+            border: 2px solid var(--limeGreen);
         }
     }
 
@@ -199,7 +199,7 @@
         display       : inline-block;
         margin        : 0 10px;
 
-        border-bottom : 1px dotted #bebebe;
+        border-bottom : 1px dotted var(--gray2);
 
         font-size     : 20px;
         text-transform: uppercase;
@@ -207,7 +207,7 @@
         cursor        : pointer;
 
         &:hover {
-            border-bottom: 1px solid #989898;
+            border-bottom: 1px solid var(--slateGray);
         }
 
         &:active {

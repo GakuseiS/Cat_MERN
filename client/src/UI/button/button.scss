@@ -25,9 +25,9 @@
     }
 
     &-gray {
-        color           : #444444;
+        color           : var(--darkGray);
 
-        background-color: #f2f2f2;
+        background-color: var(--white);
         @media screen and (max-width: 768px) {
             width    : 245px;
             height   : 40px;
@@ -36,7 +36,7 @@
 
         &:active,
         &:hover {
-            background-color: #ebebeb;
+            background-color: var(--whiteSmoke);
         }
 
         &:active {
@@ -45,13 +45,13 @@
     }
 
     &-green {
-        color           : #fff;
+        color           : white;
 
-        background-color: #68b738;
+        background-color: var(--limeGreen);
 
         &:active,
         &:hover {
-            background-color: #5eaa2f;
+            background-color: var(--green);
         }
 
         &:active {
@@ -68,8 +68,8 @@
     }
 
     &[disabled] {
-        background-color: #F0F0F0;
-        color           : #CBCBCB;
+        background-color: var(--lightGray2);
+        color           : var(--silver);
     }
 }
 @media screen and (max-width: 768px) {

@@ -1,6 +1,6 @@
 .input {
     padding    : 15px;
-    border     : 1px solid #e6e6e6;
+    border     : 1px solid var(--lightGray);
     box-sizing : border-box;
     width      : 100%;
     font-size  : 20px;
@@ -9,15 +9,15 @@
     outline    : none;
 
     &:hover {
-        border: 1px solid #cfcfcf;
+        border: 1px solid var(--gray);
     }
 
     &:active,
     &:focus {
-        border: 1px solid #5eaa2f;
+        border: 1px solid var(--green);
     }
 
     &.error {
-        border: 1px solid #C8102E;
+        border: 1px solid var(var(--crimson));
     }
 }

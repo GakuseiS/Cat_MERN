@@ -2,7 +2,7 @@
     &__success {
         text-transform: uppercase;
         font-size     : 20px;
-        color         : red;
+        color         : var(--red);
     }
 
     &__title {
@@ -38,7 +38,7 @@
         &-type {
             width     : 570px;
             box-sizing: border-box;
-            border    : 1px solid #e6e6e6;
+            border    : 1px solid var(--lightGray);
             padding   : 20px;
 
             & .form__label:not(:last-of-type) {
@@ -130,13 +130,13 @@
             display      : inline-block;
             width        : 40px;
             height       : 40px;
-            border       : 1px solid #e6e6e6;
+            border       : 1px solid var(--lightGray);
             border-radius: 50%;
             margin-right : 15px;
             cursor       : pointer;
 
             &:hover {
-                border: 1px solid #bcbcbc;
+                border: 1px solid var(--silver2);
             }
         }
 
@@ -148,11 +148,11 @@
             width       : 40px;
             height      : 40px;
             box-sizing  : border-box;
-            border      : 1px solid #cdcdcd;
+            border      : 1px solid var(--gray3);
             cursor      : pointer;
 
             &:hover {
-                border: 1px solid #bcbcbc;
+                border: 1px solid var(--silver2);
             }
         }
     }
@@ -170,7 +170,7 @@
 
             content      : "";
             display      : block;
-            border-bottom: 3px solid #68b738;
+            border-bottom: 3px solid var(--limeGreen);
             width        : 70px;
         }
     }
@@ -192,7 +192,7 @@
 
             content      : "";
             display      : block;
-            border-bottom: 3px solid #68b738;
+            border-bottom: 3px solid var(--limeGreen);
             width        : 775px;
             @media screen and (max-width: 768px) {
                 width: 140px;
@@ -217,7 +217,7 @@
 
             content      : "";
             display      : block;
-            border-bottom: 3px solid #68b738;
+            border-bottom: 3px solid var(--limeGreen);
             width        : 1110px;
             @media screen and (max-width: 768px) {
                 width: 477px;
@@ -242,7 +242,7 @@
 
             content      : "";
             display      : block;
-            border-bottom: 3px solid #68b738;
+            border-bottom: 3px solid var(--limeGreen);
             width        : 1080px;
             @media screen and (max-width: 768px) {
                 width: 445px;
@@ -254,7 +254,7 @@
         width      : 1220px;
         height     : 175px;
         padding    : 10px 20px;
-        border     : 1px solid #e6e6e6;
+        border     : 1px solid var(--lightGray);
         box-sizing : border-box;
 
         font-family: inherit;
@@ -268,12 +268,12 @@
         }
 
         &:hover {
-            border: 1px solid #cfcfcf;
+            border: 1px solid var(--gray);
         }
 
         &:active,
         &:focus {
-            border: 1px solid #5eaa2f;
+            border: 1px solid var(--green);
         }
     }
 

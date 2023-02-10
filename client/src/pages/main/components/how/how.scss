@@ -2,7 +2,7 @@
     padding: 0 110px;
     @media screen and (max-width: 768px) {
         padding      : 0 30px;
-        border-bottom: 1px solid #e6e6e6;
+        border-bottom: 1px solid var(--lightGray);
     }
 
     &__text {
@@ -46,7 +46,7 @@
             z-index  : -1;
 
             font-size: 280px;
-            color    : #f2f2f2;
+            color    : var(--white);
         }
 
         &--one::after {
@@ -71,7 +71,7 @@
         width              : 80px;
         height             : 80px;
 
-        background-color   : #68b738;
+        background-color   : var(--limeGreen);
         background-repeat  : no-repeat;
         background-position: center;
 

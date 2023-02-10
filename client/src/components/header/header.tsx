@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useRef } from "react";
 import { Modal } from "../index";
 import { NavLink, useNavigate, Link, useMatch } from "react-router-dom";
 import classNames from "classnames";
@@ -8,19 +8,21 @@ import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
 import { logout } from "../../store/loginSlice";
 import { ROUTES } from "@src/consts/routes";
 import "./header.scss";
+import { useDetectClick } from "@src/hooks/useDetectClick";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.login);
-  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const match = useMatch(ROUTES.homePage);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const { isActive, setActive } = useDetectClick(modalRef);
 
   const linkStyles = (isActive?: boolean) => classNames("header__link", !match && "alt", isActive && "active");
 
   const onClickLogin: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
-    setOpenModal(true);
+    setActive(true);
   };
 
   const onClickLogout: MouseEventHandler<HTMLAnchorElement> = (evt) => {
@@ -86,7 +88,7 @@ export const Header = () => {
           )}
         </ul>
       </nav>
-      {openModal ? <Modal setCross={setOpenModal} /> : null}
+      {isActive ? <Modal ref={modalRef} onClose={setActive} /> : null}
     </>
   );
 };

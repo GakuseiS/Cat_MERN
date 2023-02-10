@@ -28,11 +28,11 @@
         &--active {
             border-bottom: 2px solid #fff;
             @media screen and (max-width: 768px) {
-                border-bottom: 2px solid #68b738;
+                border-bottom: 2px solid var(--limeGreen);
             }
 
             &--alt {
-                border-bottom: 2px solid #68b738;
+                border-bottom: 2px solid var(--limeGreen);
             }
         }
         @media screen and (max-width: 768px) {
@@ -71,7 +71,7 @@
         &.active {
             border-bottom: 2px solid #fff;
             @media screen and (max-width: 768px) {
-                border-bottom: 2px solid #68b738;
+                border-bottom: 2px solid var(--limeGreen);
             }
         }
 
@@ -92,7 +92,7 @@
             }
 
             &.active {
-                border-bottom: 2px solid #68b738;
+                border-bottom: 2px solid var(--limeGreen);
             }
         }
     }

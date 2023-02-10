@@ -1,68 +1,64 @@
 .catalogItem {
-    position: relative;
+    position        : relative;
 
-    width: 245px;
-    height: 430px;
-    box-sizing: border-box;
-    margin-top: 140px;
-    padding: 120px 35px 40px;
+    width           : 245px;
+    height          : 430px;
+    box-sizing      : border-box;
+    margin-top      : 140px;
+    padding         : 120px 35px 40px;
 
-    background-color: #f2f2f2;
+    background-color: var(--white);
 
     &__added {
-        color: gray !important;
+        color: var(--pureGray) !important;
     }
-
     @media screen and (max-width: 768px) {
-        width: 325px;
-        padding-left: 39px;
+        width        : 325px;
+        padding-left : 39px;
         padding-right: 39px;
     }
 
     &__wrapper {
-        position: absolute;
-        top: -80px;
-        left: 0;
+        position   : absolute;
+        top        : -80px;
+        left       : 0;
 
-        display: flex;
+        display    : flex;
         align-items: flex-end;
-        width: 245px;
-        height: 210px;
-
+        width      : 245px;
+        height     : 210px;
         @media screen and (max-width: 768px) {
             left: 40px;
-            
+
         }
     }
 
     &__img {
         margin: 0 auto;
-        
+
     }
 
     &__title {
-        font-weight: normal;
-        font-size: 20px;
+        font-weight   : normal;
+        font-size     : 20px;
         text-transform: uppercase;
-        text-align: center;
+        text-align    : center;
     }
 
     &__list {
-        margin: 0;
-        margin-bottom: 30px;
-        padding: 0;
+        margin    : 0 0 30px;
+        padding   : 0;
         list-style: none;
-        
 
         &-item {
-            display: flex;
+            display        : flex;
             justify-content: space-between;
 
-            border-bottom: 1px solid #cdcdcd;
-            padding: 5px 0;
-            
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 16px;
+            border-bottom  : 1px solid var(--gray3);
+            padding        : 5px 0;
+
+            font-family    : Arial, Helvetica, sans-serif;
+            font-size      : 16px;
         }
     }
 
