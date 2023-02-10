@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Button, Input } from "../../UI";
+import { Button, Input } from "@src/UI";
 import { useNavigate } from "react-router-dom";
 import ReactDOM from "react-dom";
-import { setMessage } from "../../store/errorSlice";
-import { useAppDispatch } from "../../hooks/store.hook";
-import { login } from "../../store/loginSlice";
-import { usePostLoginMutation, usePostRegisterMutation } from "../../api/login";
+import { setMessage } from "@src/store/errorSlice";
+import { useAppDispatch } from "@src/hooks/store.hook";
+import { login } from "@src/store/loginSlice";
+import { usePostLoginMutation, usePostRegisterMutation } from "@src/api/login";
 import { FieldErrorsImpl, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

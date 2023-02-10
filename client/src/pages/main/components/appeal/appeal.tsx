@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../../../UI";
-import can from "../../../../assets/images/index-can.png";
-import { useAppSelector } from "../../../../hooks/store.hook";
+import { Button } from "@src/UI";
+import can from "@src/assets/images/index-can.png";
+import { useAppSelector } from "@src/hooks/store.hook";
 import "./appeal.scss";
 
 export const Appeal = () => {

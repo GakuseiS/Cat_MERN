@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
-import { setMessage } from "../../store/errorSlice";
+import { useAppDispatch, useAppSelector } from "@src/hooks/store.hook";
+import { setMessage } from "@src/store/errorSlice";
 import "./message.scss";
 
 export const Message = () => {

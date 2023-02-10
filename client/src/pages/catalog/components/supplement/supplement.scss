@@ -43,6 +43,7 @@
     &__content {
         display        : flex;
         justify-content: space-between;
+        min-height     : 290px;
         @media screen and (max-width: 768px) {
             flex-wrap: wrap;
         }

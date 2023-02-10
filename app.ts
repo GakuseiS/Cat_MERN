@@ -1,4 +1,4 @@
-import express, { Response, Application } from "express";
+import express, { Response, Application, Request } from "express";
 import { PrismaClient } from "@prisma/client";
 import path from "path";
 import cors from "cors";
@@ -17,6 +17,9 @@ app.use("/api/card", require("./routes/basket"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/api/addons", require("./routes/addons"));
 app.use("/api/users", require("./routes/user"));
+app.get("/uploads/:path", function (req: Request, res: Response) {
+  res.sendFile(path.join(__dirname, req.path));
+});
 app.get("*", function (req, res: Response) {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });

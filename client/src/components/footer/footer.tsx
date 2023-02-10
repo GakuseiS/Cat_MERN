@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import classNames from "classnames";
-import fLogo from "../../assets/images/footer-logo.png";
+import fLogo from "@src/assets/images/footer-logo.png";
 import "./footer.scss";
 
 export const Footer = () => {

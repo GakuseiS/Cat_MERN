@@ -3,22 +3,23 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import { MainPage, CatalogPage, FormPage, CardPage, OrdersPage } from "../pages";
 import { Layout } from "../components/layout/Layout";
 import { NoAuthOutlet, PrivateOutlet } from "./PrivateRouter";
+import { ROUTES } from "@src/consts/routes";
 
 export const BaseRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path={ROUTES.homePage} element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="catalog" element={<CatalogPage />} />
+          <Route path={ROUTES.catalogPage} element={<CatalogPage />} />
           <Route element={<NoAuthOutlet />}>
-            <Route path="form" element={<FormPage />} />
+            <Route path={ROUTES.formPage} element={<FormPage />} />
           </Route>
           <Route element={<PrivateOutlet />}>
-            <Route path="card" element={<CardPage />} />
-            <Route path="orders" element={<OrdersPage />} />
+            <Route path={ROUTES.cardPage} element={<CardPage />} />
+            <Route path={ROUTES.ordersPage} element={<OrdersPage />} />
           </Route>
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to={ROUTES.homePage} replace />} />
         </Route>
       </Routes>
     </Router>

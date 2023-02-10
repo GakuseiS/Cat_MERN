@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import catWas from "../../../../assets/images/Was.png";
-import catBecame from "../../../../assets/images/cat2.png";
+import catWas from "@src/assets/images/Was.png";
+import catBecame from "@src/assets/images/cat2.png";
 import Slider from "rc-slider";
 import "./example.scss";
 

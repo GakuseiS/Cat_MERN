@@ -1,36 +1,32 @@
 .header {
-    display: flex;
+    display        : flex;
     justify-content: space-between;
-    padding: 50px 110px;
-    padding-bottom: 35px;
-
+    padding        : 50px 110px 35px;
     @media screen and (max-width: 768px) {
         padding: 25px 30px;
     }
 
     &__list {
-        display: flex;
+        display        : flex;
         justify-content: space-between;
-        width: 580px;
-        margin: 0;
-        padding: 0;
-        
-        list-style: none;
+        width          : 580px;
+        margin         : 0;
+        padding        : 0;
 
+        list-style     : none;
         @media screen and (max-width: 768px) {
             width: 520px;
         }
     }
 
     &__item {
-        padding-top: 15px;
+        padding-top   : 15px;
 
         text-transform: uppercase;
-        font-size: 20px;
+        font-size     : 20px;
 
         &--active {
             border-bottom: 2px solid #fff;
-
             @media screen and (max-width: 768px) {
                 border-bottom: 2px solid #68b738;
             }
@@ -39,16 +35,14 @@
                 border-bottom: 2px solid #68b738;
             }
         }
-
         @media screen and (max-width: 768px) {
             font-size: 18px;
         }
     }
 
     &__link {
-        color: #fff;        
+        color          : #fff;
         text-decoration: none;
-
         @media screen and (max-width: 768px) {
             color: #000;
         }
@@ -59,6 +53,7 @@
                 color: #000;
             }
         }
+
         &:hover {
             color: rgba(255, 255, 255, 0.6);
             @media screen and (max-width: 768px) {
@@ -73,8 +68,15 @@
             }
         }
 
-        &--alt {
-            color: #000;
+        &.active {
+            border-bottom: 2px solid #fff;
+            @media screen and (max-width: 768px) {
+                border-bottom: 2px solid #68b738;
+            }
+        }
+
+        &.alt {
+            color          : #000;
             text-decoration: none;
 
             &:visited {
@@ -84,9 +86,13 @@
             &:hover {
                 color: rgba(0, 0, 0, 0.6);
             }
-    
+
             &:active {
                 color: rgba(0, 0, 0, 0.3);
+            }
+
+            &.active {
+                border-bottom: 2px solid #68b738;
             }
         }
     }

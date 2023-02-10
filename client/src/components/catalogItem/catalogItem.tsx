@@ -1,8 +1,8 @@
 import React, { FormEventHandler } from "react";
-import { Button } from "../../UI";
-import { setMessage } from "../../store/errorSlice";
-import { useAppDispatch } from "../../hooks/store.hook";
-import { usePostProductMutation } from "../../api/product";
+import { Button } from "@src/UI";
+import { setMessage } from "@src/store/errorSlice";
+import { useAppDispatch } from "@src/hooks/store.hook";
+import { usePostProductMutation } from "@src/api/product";
 import "./catalogItem.scss";
 
 interface CatalogItemProps {

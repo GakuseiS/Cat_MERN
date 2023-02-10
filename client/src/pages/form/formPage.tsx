@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "../../components";
+import { Form } from "@src/components";
 import "./formPage.scss";
 
 export const FormPage = () => {
