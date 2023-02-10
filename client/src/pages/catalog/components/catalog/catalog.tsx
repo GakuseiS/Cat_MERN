@@ -1,7 +1,7 @@
 import React from "react";
 import { CatalogItem, Loader } from "@src/components";
 import { useGetMainProductsQuery } from "@src/api/product";
-import { Button } from "@src/UI";
+import { Button } from "@src/ui";
 import "./catalog.scss";
 
 export const Catalog = () => {

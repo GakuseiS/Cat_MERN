@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { usePostLoginMutation, usePostRegisterMutation } from "@src/api/login";
 import { useAppDispatch } from "@src/hooks/store.hook";
-import { setMessage } from "@src/store/errorSlice";
+import { setMessage } from "@src/store/toastSlice";
 import { login } from "@src/store/loginSlice";
 import { MouseEventHandler, useState } from "react";
 import { useForm } from "react-hook-form";

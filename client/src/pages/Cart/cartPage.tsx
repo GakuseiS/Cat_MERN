@@ -4,9 +4,9 @@ import { Loader } from "@src/components";
 import { useAppDispatch } from "@src/hooks/store.hook";
 import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "@src/api/card";
 import { usePostOrderMutation } from "@src/api/order";
-import { setMessage } from "@src/store/errorSlice";
-import { Button } from "@src/UI";
-import "./cardPage.scss";
+import { setMessage } from "@src/store/toastSlice";
+import { Button } from "@src/ui";
+import "./cartPage.scss";
 
 export const CardPage = () => {
   let history = useNavigate();

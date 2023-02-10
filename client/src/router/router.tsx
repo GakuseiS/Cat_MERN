@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { MainPage, CatalogPage, FormPage, CardPage, OrdersPage } from "../pages";
-import { Layout } from "../components/layout/Layout";
+import { Layout } from "../components/Layout/Layout";
 import { NoAuthOutlet, PrivateOutlet } from "./PrivateRouter";
 import { ROUTES } from "@src/consts/routes";
 

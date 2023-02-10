@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@src/UI";
+import { Button } from "@src/ui";
 import can from "@src/assets/images/index-can.png";
 import { useAppSelector } from "@src/hooks/store.hook";
 import "./appeal.scss";

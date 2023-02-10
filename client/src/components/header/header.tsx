@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useRef } from "react";
-import { Modal } from "../index";
+import { AuthModal } from "../index";
 import { NavLink, useNavigate, Link, useMatch } from "react-router-dom";
 import classNames from "classnames";
 import logoDesktop from "../../assets/images/logo-desktop.png";
@@ -7,8 +7,8 @@ import logoTablet from "../../assets/images/logo-tablet.png";
 import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
 import { logout } from "../../store/loginSlice";
 import { ROUTES } from "@src/consts/routes";
-import "./header.scss";
 import { useDetectClick } from "@src/hooks/useDetectClick";
+import "./header.scss";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -88,7 +88,7 @@ export const Header = () => {
           )}
         </ul>
       </nav>
-      {isActive ? <Modal ref={modalRef} onClose={setActive} /> : null}
+      {isActive ? <AuthModal ref={modalRef} onClose={setActive} /> : null}
     </>
   );
 };

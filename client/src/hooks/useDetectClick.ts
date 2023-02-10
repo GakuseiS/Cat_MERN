@@ -13,7 +13,7 @@ export const useDetectClick = (
 
   const pageClickEvent = useCallback((e: MouseEvent) => {
     // Обработка клика если вне области курсор
-    const isMissClick = ref.current !== null && !ref.current.contains(e.target);
+    const isMissClick = ref.current && !ref.current.contains(e.target);
     if (isMissClick) {
       setIsActive(false);
       clear?.();

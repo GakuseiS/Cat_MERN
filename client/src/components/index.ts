@@ -1,7 +1,7 @@
-export { CatalogItem } from "./catalogItem";
-export { Footer } from "./footer";
-export { Form } from "./form";
-export { Header } from "./header";
-export { Loader } from "./loader";
-export { Message } from "./message";
-export { Modal } from "./modal";
+export { CatalogItem } from "./CatalogItem";
+export { Footer } from "./Footer";
+export { RequestForm } from "./RequestForm";
+export { Header } from "./Header";
+export { Loader } from "./Loader";
+export { Toast } from "./Toast";
+export { AuthModal } from "./AuthModal";

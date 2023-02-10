@@ -1,6 +1,6 @@
 import React, { FormEventHandler } from "react";
-import { Button } from "@src/UI";
-import { setMessage } from "@src/store/errorSlice";
+import { Button } from "@src/ui";
+import { setMessage } from "@src/store/toastSlice";
 import { useAppDispatch } from "@src/hooks/store.hook";
 import { usePostProductMutation } from "@src/api/product";
 import "./catalogItem.scss";

@@ -1,3 +1,3 @@
-export { Input } from "./input";
-export { Button } from "./button";
-export { PhoneInput } from "./phoneInput";
+export { Input } from "./Input";
+export { Button } from "./Button";
+export { PhoneInput } from "./PhoneInput";

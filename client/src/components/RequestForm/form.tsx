@@ -2,14 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "@src/hooks/store.hook";
 import { usePostProgrammMutation } from "@src/api/programm";
-import { setMessage } from "@src/store/errorSlice";
-import { Button, Input, PhoneInput } from "@src/UI";
+import { setMessage } from "@src/store/toastSlice";
+import { Button, Input, PhoneInput } from "@src/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormValues } from "./form.types";
 import { schema } from "./form.schema";
 import "./form.scss";
 
-export const Form = () => {
+export const RequestForm = () => {
   const [postProgramm] = usePostProgrammMutation();
   const dispatch = useAppDispatch();
   const {

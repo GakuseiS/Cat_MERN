@@ -1,17 +1,17 @@
 import React from "react";
-import { Button, Input } from "@src/UI";
+import { Button, Input } from "@src/ui";
 import ReactDOM from "react-dom";
 import { FieldErrorsImpl } from "react-hook-form";
-import { useModal } from "./useModal";
-import { RegisterValues } from "./modal.types";
 import "./modal.scss";
 import classNames from "classnames";
+import { useModal } from "./useModal";
+import { RegisterValues } from "./modal.types";
 
 interface ModalProps {
   onClose: Function;
 }
 
-export const Modal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
+export const AuthModal = React.forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const { onClose } = props;
   const { loginHandler, registerHandler, switcher, register, errors, switchContent } = useModal(props);
 

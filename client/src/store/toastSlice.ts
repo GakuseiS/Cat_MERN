@@ -4,9 +4,9 @@ const initialState = {
   message: "",
 };
 
-const errorSlice = createSlice({
+const toastSlice = createSlice({
   initialState,
-  name: "error",
+  name: "toast",
   reducers: {
     setMessage: (state, action) => {
       state.message = action.payload;
@@ -14,5 +14,5 @@ const errorSlice = createSlice({
   },
 });
 
-export const { setMessage } = errorSlice.actions;
-export default errorSlice.reducer;
+export const { setMessage } = toastSlice.actions;
+export default toastSlice.reducer;
