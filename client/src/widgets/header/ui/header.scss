@@ -1,0 +1,107 @@
+.header {
+    display        : flex;
+    justify-content: space-between;
+    padding        : 50px 110px 35px;
+    @media screen and (max-width: 768px) {
+        padding: 25px 30px;
+    }
+
+    &__list {
+        display        : flex;
+        justify-content: space-between;
+        width          : 580px;
+        margin         : 0;
+        padding        : 0;
+
+        list-style     : none;
+        @media screen and (max-width: 768px) {
+            width: 520px;
+        }
+    }
+
+    &__item {
+        padding-top   : 15px;
+
+        text-transform: uppercase;
+        font-size     : 20px;
+
+        &--active {
+            border-bottom: 2px solid #fff;
+            @media screen and (max-width: 768px) {
+                border-bottom: 2px solid var(--limeGreen);
+            }
+
+            &--alt {
+                border-bottom: 2px solid var(--limeGreen);
+            }
+        }
+        @media screen and (max-width: 768px) {
+            font-size: 18px;
+        }
+    }
+
+    &__link {
+        padding         : 0;
+        color           : #fff;
+        text-decoration : none;
+        font-size       : inherit;
+        font-family     : inherit;
+        text-transform  : inherit;
+        line-height     : inherit;
+        border          : none;
+        background-color: transparent;
+        cursor          : pointer;
+        @media screen and (max-width: 768px) {
+            color: #000;
+        }
+
+        &:visited {
+            color: #fff;
+            @media screen and (max-width: 768px) {
+                color: #000;
+            }
+        }
+
+        &:hover {
+            color: rgba(255, 255, 255, 0.6);
+            @media screen and (max-width: 768px) {
+                color: rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        &:active {
+            color: rgba(255, 255, 255, 0.3);
+            @media screen and (max-width: 768px) {
+                color: rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        &.active {
+            border-bottom: 2px solid #fff;
+            @media screen and (max-width: 768px) {
+                border-bottom: 2px solid var(--limeGreen);
+            }
+        }
+
+        &.alt {
+            color          : #000;
+            text-decoration: none;
+
+            &:visited {
+                color: #000;
+            }
+
+            &:hover {
+                color: rgba(0, 0, 0, 0.6);
+            }
+
+            &:active {
+                color: rgba(0, 0, 0, 0.3);
+            }
+
+            &.active {
+                border-bottom: 2px solid var(--limeGreen);
+            }
+        }
+    }
+}

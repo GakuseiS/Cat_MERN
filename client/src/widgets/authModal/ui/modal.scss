@@ -1,0 +1,84 @@
+.modal {
+    position        : fixed;
+    top             : 0;
+    bottom          : 0;
+    left            : 0;
+    right           : 0;
+    background-color: rgba(0, 0, 0, 0.15);
+
+    &__box {
+        position        : absolute;
+        left            : calc(50% - 270px);
+        top             : 150px;
+        z-index         : 10;
+
+        width           : 560px;
+        padding         : 30px 50px 50px;
+
+        background-color: white;
+        box-shadow      : 4px 4px 30px 7px rgba(0, 0, 0, 0.1);
+
+        box-sizing      : border-box;
+    }
+
+    &__title {
+        margin    : 0 0 10px;
+
+        font-size : 40px;
+        text-align: center;
+    }
+
+    &__text {
+        font-size : 18px;
+        text-align: center;
+    }
+
+    input {
+        &:not(:last-of-type) {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__wrapper {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    &__switch {
+        color           : black;
+        text-decoration : none;
+        background-color: transparent;
+        border          : 0;
+        border-bottom   : 2px solid transparent;
+        font-size       : 20px;
+        font-family     : inherit;
+        cursor          : pointer;
+
+        &.active,
+        &:hover {
+            border-color: var(--limeGreen);
+        }
+    }
+
+    &__switches {
+        display        : flex;
+        justify-content: space-around;
+
+        font-size      : 18px;
+    }
+
+    &__cross {
+        position  : absolute;
+        top       : 15px;
+        right     : 20px;
+
+        display   : inline-block;
+        width     : 30px;
+
+        font-size : 30px;
+        text-align: center;
+        color     : black;
+
+        cursor    : pointer;
+    }
+}

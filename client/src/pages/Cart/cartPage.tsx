@@ -1,23 +1,22 @@
-import React, { FormEventHandler, MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader } from "@src/components";
-import { useAppDispatch } from "@src/hooks/store.hook";
-import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "@src/api/card";
-import { usePostOrderMutation } from "@src/api/order";
-import { setMessage } from "@src/store/toastSlice";
-import { Button } from "@src/ui";
+import { useAppDispatch } from "@src/app/lib/store.hook";
+import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "@src/shared/api/card";
+import { usePostOrderMutation } from "@src/shared/api/order";
+import { setMessage } from "@src/entities/toast/model/toastSlice";
+import { Button } from "@src/shared";
+import { Loader } from "@src/shared/loader";
 import "./cartPage.scss";
 
-export const CardPage = () => {
+export const CartPage = () => {
   let history = useNavigate();
-  const { data: card, isLoading } = useGetBasketQuery();
+  const { data: cartList, isLoading } = useGetBasketQuery();
   const [clearCard] = useDeleteBasketMutation();
   const [deleteItem] = useDeleteBasketItemMutation();
   const [postOrder] = usePostOrderMutation();
   const dispatch = useAppDispatch();
 
-  const clearCardHandler: FormEventHandler<HTMLFormElement> = async (evt) => {
-    evt.preventDefault();
+  const clearCardHandler = async () => {
     try {
       const data = await clearCard().unwrap();
       dispatch(setMessage(data.message));
@@ -40,11 +39,10 @@ export const CardPage = () => {
     }
   };
 
-  const postOrderHandler: FormEventHandler<HTMLFormElement> = async (evt) => {
-    evt.preventDefault();
-    if (card?.id) {
+  const postOrderHandler = async () => {
+    if (cartList?.id) {
       try {
-        await postOrder({ id: card.id });
+        await postOrder({ id: cartList.id });
         history("/orders");
       } catch (err: any) {
         dispatch(setMessage(err.data?.message));
@@ -55,42 +53,40 @@ export const CardPage = () => {
 
   if (isLoading) {
     return (
-      <div className="cardPage">
+      <div className="cartPage">
         <Loader />
       </div>
     );
   }
 
   return (
-    <div className="cardPage">
-      <h1 className="cardPage__title">Корзина</h1>
-      {card?.allPrice ? (
+    <div className="cartPage">
+      <h1 className="cartPage__title">Корзина</h1>
+      {cartList?.allPrice ? (
         <div>
-          <ol className="cardPage__list">
-            {card?.items?.map((item) => (
-              <li key={item.id} className="cardPage__item">
-                {item.title} {item.size} {item.taste} - {item.price} руб. - {item.count} шт.
+          <ol className="cartPage__list">
+            {cartList.items?.map((pruduct) => (
+              <li key={pruduct.id} className="cartPage__item">
+                {pruduct.title} {pruduct.size} {pruduct.taste} - {pruduct.price} руб. - {pruduct.count} шт.
                 <button
                   title="Удалить из корзины"
-                  data-id={item.id}
+                  data-id={pruduct.id}
                   onClick={deleteItemHandler}
-                  className="cardPage__delete"
+                  className="cartPage__delete"
                 >
                   ✕
                 </button>
               </li>
             ))}
           </ol>
-          {<p className="cardPage__price">Общая стоимость: {card?.allPrice} руб.</p>}
-          <form className="cardPage__order" method="POST" onSubmit={postOrderHandler}>
-            <Button>Сделать заказ</Button>
-          </form>
-          <form className="cardPage__clear" method="POST" onSubmit={clearCardHandler}>
-            <Button>Очистить корзину</Button>
-          </form>
+          {<p className="cartPage__price">Общая стоимость: {cartList?.allPrice} руб.</p>}
+          <Button onClick={postOrderHandler}>Сделать заказ</Button>
+          <Button className="cartPage__clear" onClick={clearCardHandler}>
+            Очистить корзину
+          </Button>
         </div>
       ) : null}
-      {card?.allPrice === 0 ? <p>Ваша корзина пуста</p> : null}
+      {cartList?.allPrice === 0 ? <p>Ваша корзина пуста</p> : null}
     </div>
   );
 };

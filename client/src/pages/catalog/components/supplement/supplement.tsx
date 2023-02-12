@@ -1,8 +1,8 @@
 import React, { FormEventHandler } from "react";
 import { useDispatch } from "react-redux";
-import { useGetSupplementsQuery, usePostProductMutation } from "@src/api/product";
-import { setMessage } from "@src/store/toastSlice";
-import { Button } from "@src/ui";
+import { useGetSupplementsQuery, usePostProductMutation } from "@src/shared/api/product";
+import { setMessage } from "@src/entities/toast/model/toastSlice";
+import { Button } from "@src/shared";
 import "./supplement.scss";
 
 export const Supplement = () => {

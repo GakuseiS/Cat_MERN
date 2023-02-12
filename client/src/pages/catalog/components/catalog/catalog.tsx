@@ -1,8 +1,9 @@
 import React from "react";
-import { CatalogItem, Loader } from "@src/components";
-import { useGetMainProductsQuery } from "@src/api/product";
-import { Button } from "@src/ui";
+import { useGetMainProductsQuery } from "@src/shared/api/product";
+import { Button } from "@src/shared";
 import "./catalog.scss";
+import { CatalogItem } from "@src/entities/catalogItem";
+import { Loader } from "@src/shared/loader";
 
 export const Catalog = () => {
   const { data: cards, isLoading } = useGetMainProductsQuery();

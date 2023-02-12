@@ -1,5 +1,5 @@
 import React from "react";
-import { RequestForm } from "@src/components";
+import { RequestForm } from "@src/widgets/requestForm";
 import "./formPage.scss";
 
 export const FormPage = () => {

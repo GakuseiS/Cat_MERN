@@ -1,6 +1,6 @@
 import React from "react";
-import { Loader } from "@src/components";
-import { useGetOrdersQuery } from "@src/api/order";
+import { useGetOrdersQuery } from "@src/shared/api/order";
+import { Loader } from "@src/shared/loader";
 import "./ordersPage.scss";
 
 const setDate = (date: string) =>
