@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import "./button.scss";
 
-type ButtonProps = {
+interface ButtonProps {
   size?: string;
   color?: string;
   page?: string;
@@ -11,7 +11,7 @@ type ButtonProps = {
   disabled?: boolean;
   className?: string;
   onClick?: () => void;
-};
+}
 
 export const Button = (props: ButtonProps) => {
   const { size = "medium", color = "green", page = "", type, disabled, onClick, className, children } = props;

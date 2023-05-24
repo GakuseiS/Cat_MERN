@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, FocusEventHandler, useState } from "react";
 import "./input.scss";
 import classNames from "classnames";
 
-type InputProps = {
+interface InputProps {
   name?: string;
   placeholder?: string;
   type?: "password" | "email" | "text" | "number";
@@ -14,7 +14,7 @@ type InputProps = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   error?: boolean;
-};
+}
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const [value, setValue] = useState("");

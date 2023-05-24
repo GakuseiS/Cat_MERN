@@ -1,10 +1,10 @@
 import React from "react";
 import { Button } from "@src/shared";
-import { usePostProgrammMutation } from "@src/features/sendRequest/api/programm";
-import { useAppDispatch } from "@src/app/lib/store.hook";
+import { useAppDispatch } from "@src/app/store/store.hook";
 import { setMessage } from "@src/entities/toast/model/toastSlice";
 import { FormValues } from "@src/entities/requestForm";
 import { useFormContext } from "react-hook-form";
+import { usePostProgrammMutation } from "@src/api/request/request.queries";
 
 export const SendRequest = () => {
   const [postProgramm] = usePostProgrammMutation();

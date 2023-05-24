@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Alert } from "@src/shared/alert/ui/alert";
-import { useAppDispatch, useAppSelector } from "@src/app/lib/store.hook";
+import { useAppDispatch, useAppSelector } from "@src/app/store/store.hook";
 import { setMessage } from "@src/entities/toast/model/toastSlice";
 
 export const Toast = () => {

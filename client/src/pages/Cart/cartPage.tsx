@@ -1,15 +1,15 @@
 import React, { MouseEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@src/app/lib/store.hook";
-import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "@src/shared/api/card";
-import { usePostOrderMutation } from "@src/shared/api/order";
+import { useAppDispatch } from "@src/app/store/store.hook";
+import { useGetBasketQuery, useDeleteBasketMutation, useDeleteBasketItemMutation } from "@src/api/card/card.queries";
+import { usePostOrderMutation } from "@src/api/order/order.queries";
 import { setMessage } from "@src/entities/toast/model/toastSlice";
 import { Button } from "@src/shared";
 import { Loader } from "@src/shared/loader";
 import "./cartPage.scss";
 
 export const CartPage = () => {
-  let history = useNavigate();
+  const navigate = useNavigate();
   const { data: cartList, isLoading } = useGetBasketQuery();
   const [clearCard] = useDeleteBasketMutation();
   const [deleteItem] = useDeleteBasketItemMutation();
@@ -43,7 +43,7 @@ export const CartPage = () => {
     if (cartList?.id) {
       try {
         await postOrder({ id: cartList.id });
-        history("/orders");
+        navigate("/orders");
       } catch (err: any) {
         dispatch(setMessage(err.data?.message));
         console.error("Ошибка отправки заказа");

@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { serviceApi } from "../../shared/api/service";
+import { api } from "../../api/baseApi";
 import toastSlice from "../../entities/toast/model/toastSlice";
 import loginSlice from "./loginSlice";
 
 export const store = configureStore({
   reducer: {
-    [serviceApi.reducerPath]: serviceApi.reducer,
+    [api.reducerPath]: api.reducer,
     toast: toastSlice,
     login: loginSlice,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(serviceApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -3,13 +3,14 @@
  */
 import { useState, useLayoutEffect, RefObject, useCallback } from "react";
 
-export const useDetectClick = (
-  ref: RefObject<any | null>,
-  initialState = false,
-  clear?: () => void,
-  typeClick: "mousedown" | "click" | "mouseup" = "mousedown"
-) => {
-  const [isActive, setIsActive] = useState<boolean>(initialState);
+interface DetectClickHookProps {
+  ref: RefObject<any | null>;
+  initialState?: boolean;
+  clear?: () => void;
+}
+
+export const useDetectClick = ({ ref, initialState = false, clear }: DetectClickHookProps) => {
+  const [isActive, setIsActive] = useState(initialState);
 
   const pageClickEvent = useCallback((e: MouseEvent) => {
     // Обработка клика если вне области курсор
@@ -21,10 +22,10 @@ export const useDetectClick = (
   }, []);
 
   useLayoutEffect(() => {
-    document.addEventListener(typeClick, pageClickEvent);
+    document.addEventListener("mousedown", pageClickEvent);
 
     return () => {
-      document.removeEventListener(typeClick, pageClickEvent);
+      document.removeEventListener("mousedown", pageClickEvent);
     };
   }, []);
 

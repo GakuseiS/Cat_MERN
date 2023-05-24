@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { usePostLoginMutation, usePostRegisterMutation } from "@src/shared/api/login";
-import { useAppDispatch } from "@src/app/lib/store.hook";
+import { usePostLoginMutation, usePostRegisterMutation } from "@src/api/login/login.queries";
+import { useAppDispatch } from "@src/app/store/store.hook";
 import { setMessage } from "@src/entities/toast/model/toastSlice";
 import { login } from "@src/app/store/loginSlice";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";

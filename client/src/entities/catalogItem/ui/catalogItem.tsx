@@ -1,8 +1,8 @@
-import React, { FormEventHandler } from "react";
+import React from "react";
 import { Button } from "@src/shared";
 import { setMessage } from "@src/entities/toast/model/toastSlice";
-import { useAppDispatch } from "@src/app/lib/store.hook";
-import { usePostProductMutation } from "@src/shared/api/product";
+import { useAppDispatch } from "@src/app/store/store.hook";
+import { usePostProductMutation } from "@src/api/product/product.queries";
 import "./catalogItem.scss";
 
 interface CatalogItemProps {

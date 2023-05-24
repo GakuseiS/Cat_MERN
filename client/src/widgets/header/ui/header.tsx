@@ -3,10 +3,10 @@ import { NavLink, useNavigate, Link, useMatch } from "react-router-dom";
 import cn from "classnames";
 import logoDesktop from "@src/assets/images/logo-desktop.png";
 import logoTablet from "@src/assets/images/logo-tablet.png";
-import { useAppDispatch, useAppSelector } from "../../../app/lib/store.hook";
+import { useAppDispatch, useAppSelector } from "../../../app/store/store.hook";
 import { logout } from "../../../app/store/loginSlice";
-import { ROUTES } from "@src/app/lib/routes";
-import { useDetectClick } from "@src/app/lib/useDetectClick";
+import { ROUTES } from "@src/app/router/routes.type";
+import { useDetectClick } from "@src/app/hooks/useDetectClick";
 import { AuthModal } from "@src/widgets/authModal";
 import "./header.scss";
 
@@ -16,7 +16,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const match = useMatch(ROUTES.homePage);
   const modalRef = useRef<HTMLDivElement>(null);
-  const { isActive, setActive } = useDetectClick(modalRef);
+  const { isActive, setActive } = useDetectClick({ ref: modalRef });
 
   const linkStyles = (isActive?: boolean) => cn("header__link", !match && "alt", isActive && "active");
 

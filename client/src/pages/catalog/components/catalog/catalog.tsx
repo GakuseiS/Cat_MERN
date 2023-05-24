@@ -1,9 +1,9 @@
 import React from "react";
-import { useGetMainProductsQuery } from "@src/shared/api/product";
+import { useGetMainProductsQuery } from "@src/api/product/product.queries";
 import { Button } from "@src/shared";
-import "./catalog.scss";
 import { CatalogItem } from "@src/entities/catalogItem";
 import { Loader } from "@src/shared/loader";
+import "./catalog.scss";
 
 export const Catalog = () => {
   const { data: cards, isLoading } = useGetMainProductsQuery();
@@ -18,16 +18,8 @@ export const Catalog = () => {
 
   return (
     <div className="catalog">
-      {cards?.map((item) => (
-        <CatalogItem
-          key={item.id}
-          title={item.title}
-          img={item.img}
-          size={item.size}
-          taste={item.taste}
-          price={item.price}
-          id={item.id}
-        />
+      {cards?.map((card) => (
+        <CatalogItem key={card.id} {...card} />
       ))}
       <div className="catalog__more">
         <h3 className="catalog__more-title">

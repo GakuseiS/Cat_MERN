@@ -2,15 +2,15 @@ import React from "react";
 import { Route, Navigate, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import { HomePage, CatalogPage, FormPage, CartPage, OrdersPage } from "../../pages";
 import { Layout } from "../../processes/layout/layout";
-import { NoAuthOutlet, PrivateOutlet } from "./PrivateRouter";
-import { ROUTES } from "@src/app/lib/routes";
+import { PublicOutlet, PrivateOutlet } from "./authRouter";
+import { ROUTES } from "@src/app/router/routes.type";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={ROUTES.homePage} element={<Layout />}>
       <Route index element={<HomePage />} />
       <Route path={ROUTES.catalogPage} element={<CatalogPage />} />
-      <Route element={<NoAuthOutlet />}>
+      <Route element={<PublicOutlet />}>
         <Route path={ROUTES.formPage} element={<FormPage />} />
       </Route>
       <Route element={<PrivateOutlet />}>

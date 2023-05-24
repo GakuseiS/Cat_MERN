@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import cn from "classnames";
 import fLogo from "@src/assets/images/footer-logo.png";
-import { ROUTES } from "@src/app/lib/routes";
+import { ROUTES } from "@src/app/router/routes.type";
 import "./footer.scss";
 
 export const Footer = () => {

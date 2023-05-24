@@ -1,14 +1,14 @@
-import { Navigate, Outlet } from "react-router-dom";
 import React from "react";
-import { useAppSelector } from "../lib/store.hook";
-import { ROUTES } from "../lib/routes";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAppSelector } from "../store/store.hook";
+import { ROUTES } from "./routes.type";
 
 export function PrivateOutlet() {
   const { token } = useAppSelector((state) => state.login);
   return token ? <Outlet /> : <Navigate to={ROUTES.homePage} />;
 }
 
-export function NoAuthOutlet() {
+export function PublicOutlet() {
   const { token } = useAppSelector((state) => state.login);
   return !token ? <Outlet /> : <Navigate to={ROUTES.homePage} />;
 }

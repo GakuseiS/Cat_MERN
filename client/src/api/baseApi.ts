@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { RootState } from "../../app/store";
+import { RootState } from "../app/store";
 
-export const serviceApi = createApi({
-  reducerPath: "serviceApi",
+export const api = createApi({
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",
     prepareHeaders: (headers, { getState }) => {

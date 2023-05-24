@@ -1,21 +1,9 @@
-import { serviceApi } from "./service";
+import { api } from "../baseApi";
+import { CardData } from "./card.types";
 
-type TCard = {
-  id: number;
-  allPrice: number;
-  items?: {
-    id: string;
-    title: string;
-    size: string;
-    taste: string;
-    price: string;
-    count: string;
-  }[];
-};
-
-const extendedApi = serviceApi.injectEndpoints({
+const extendedApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBasket: builder.query<TCard, void>({ query: () => "api/card", providesTags: ["BASKET"] }),
+    getBasket: builder.query<CardData, void>({ query: () => "api/card", providesTags: ["BASKET"] }),
     deleteBasket: builder.mutation<{ message: string }, void>({
       query: () => ({ url: "/api/card", method: "delete" }),
       invalidatesTags: ["BASKET"],

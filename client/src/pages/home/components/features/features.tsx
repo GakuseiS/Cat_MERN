@@ -1,4 +1,4 @@
-import { ROUTES } from "@src/app/lib/routes";
+import { ROUTES } from "@src/app/router/routes.type";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./features.scss";

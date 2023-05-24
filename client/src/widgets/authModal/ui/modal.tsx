@@ -2,10 +2,10 @@ import React from "react";
 import { Button, Input } from "@src/shared";
 import ReactDOM from "react-dom";
 import { FieldErrorsImpl } from "react-hook-form";
-import "./modal.scss";
 import classNames from "classnames";
 import { useModal } from "../model/useModal";
 import { RegisterValues } from "../libs/modal.types";
+import "./modal.scss";
 
 interface ModalProps {
   onClose: Function;

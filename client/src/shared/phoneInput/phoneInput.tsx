@@ -3,7 +3,7 @@ import React, { ChangeEventHandler, FocusEventHandler, forwardRef } from "react"
 import InputMask, { ReactInputMask } from "react-input-mask";
 import "./phoneInput.scss";
 
-type PhoneInputProps = {
+interface PhoneInputProps {
   id?: string;
   name?: string;
   className?: string;
@@ -11,7 +11,7 @@ type PhoneInputProps = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   error?: boolean;
-};
+}
 
 export const PhoneInput = forwardRef<ReactInputMask, PhoneInputProps>((props, ref) => {
   return (

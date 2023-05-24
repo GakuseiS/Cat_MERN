@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@src/shared";
 import can from "@src/assets/images/index-can.png";
-import { useAppSelector } from "@src/app/lib/store.hook";
+import { useAppSelector } from "@src/app/store/store.hook";
 import "./appeal.scss";
 
 export const Appeal = () => {

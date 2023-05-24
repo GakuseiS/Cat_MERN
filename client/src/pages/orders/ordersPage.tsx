@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetOrdersQuery } from "@src/shared/api/order";
+import { useGetOrdersQuery } from "@src/api/order/order.queries";
 import { Loader } from "@src/shared/loader";
 import "./ordersPage.scss";
 
